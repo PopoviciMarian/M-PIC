@@ -1,0 +1,59 @@
+.FormInput {
+  width: 70%;
+  padding: 12px 10px;
+  margin: 8px 0px;
+  display: inline-block;
+  border: 3px solid #ccc;
+  border-radius: 20px;
+  box-sizing:content-box;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+
+.LoginButton {
+  width: 100px;
+  background-color: #ffffff;
+  color:#131313;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 18px;
+  padding: 14px 20px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+.CenteredText {
+    text-align:center;
+}
+
+.LoginButton:hover {
+  outline: 1px solid;
+}
+
+.FormInputDiv {
+  border-radius: 60px;
+  background-color: #f9cf45;
+  padding: 20px;
+  width: 260px;
+  height: 280px;
+  -webkit-border-radius: 60px;
+  -moz-border-radius: 60px;
+  -ms-border-radius: 60px;
+  -o-border-radius: 60px;
+}
+
+.CenterDiv {
+  display: flex;
+  justify-content: center;
+}
+
+.CenterHolder {
+  text-align: center;
+}
+
