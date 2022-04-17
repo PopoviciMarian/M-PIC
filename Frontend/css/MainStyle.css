@@ -11,23 +11,36 @@
   -ms-border-radius: 20px;
   -o-border-radius: 20px;
 }
-
-.LoginButton {
-  width: 100px;
-  background-color: #ffffff;
-  color:#131313;
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 18px;
-  padding: 14px 20px;
-  margin-top: 10px;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  -ms-border-radius: 20px;
-  -o-border-radius: 20px;
+.noAccountSignUpContainer {
+  align-items: flex-end;
+  text-align: center;
+  margin-top:78px;
+  padding-top:10px;
+  padding-bottom: 20px;
+  color:black;
+  background-color:rgba(117, 115, 143, 0.342);
 }
+.login__submit {
+	background: #fff;
+	font-size: 14px;
+	margin-top: 30px;
+	padding: 16px 20px;
+	border-radius: 26px;
+	border: 1px solid #D4D3E8;
+	text-transform: uppercase;
+	font-weight: 700;
+	display: flex;
+	align-items: center;
+	width: 75%;
+	color: #000000;
+	box-shadow: 0px 2px 2px #5c5c5c;
+	cursor: pointer;
+	transition: .2s;
+}
+.noAccountSignUpButton:visited{
+  color:black;
+}
+
 .CenteredText {
     text-align:center;
 }

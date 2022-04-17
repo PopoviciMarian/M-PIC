@@ -6,6 +6,7 @@
     <title>Login Page</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='../css/navbar.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../css/MainStyle.css'>
 <script src='main.js'></script>
 </head>
 <body>
@@ -24,17 +25,48 @@
             <span></span>
           </label>
         </div>
-        
+
         <div class="nav-links">
           <a href="about.html" >About</a>
           <a href="register.html">Register</a>
         </div>
       </div>
-      <div id="main-text">
-          <h1>
-             LOGIN
-          </h1>
+      <div id="register-body">
+        <div class="container">
+            <div class="screen">
+                <div class="screen__content">
+                    <form class="login">
+                        <div class="login__field">
+                            <input type="text" class="login__input" placeholder="User name / Email">
+                        </div>
+
+                        <div class="login__field">
+                            <input type="password" class="login__input" placeholder="Password">
+                        </div>
+                        <button class="login__submit">
+                          <span>Log in</span>
+                        </button>
+                    </form>
+                    <div class = "noAccountSignUpContainer">
+                      <div>
+                        <p style="margin-bottom: 10px;">Don't have an account?</p>
+                        <a class="noAccountSignUpButton" href="register.html">Sign up</a>
+                      </div>
+                    </div>
+                </div>
+                
+                <div class="screen__background">
+                    <span class="screen__background__shape screen__background__shape4"></span>
+                    <span class="screen__background__shape screen__background__shape3"></span>		
+                    <span class="screen__background__shape screen__background__shape2"></span>
+                    <span class="screen__background__shape screen__background__shape1"></span>
+                </div>
+                
+            </div>
+            
+        </div>
       </div>
+
 
     
 </body>
