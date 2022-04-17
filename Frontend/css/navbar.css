@@ -256,4 +256,5 @@
 	box-shadow: 0px 2px 2px #5c5c5c;
 	cursor: pointer;
 	transition: .2s;
+    justify-content: center;
 }
