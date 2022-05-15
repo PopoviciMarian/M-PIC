@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../../styles/main.css" />
+    <link rel="stylesheet" href="../../components/navbar/navbar.css" />
+    <script src="../../components/navbar/navbar.js" defer></script>
+
+    <link rel="stylesheet" href="./auth.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-wrapper">
+        <div class="menu">
+          <div class="line"></div>
+          <div class="line hide"></div>
+          <div class="line"></div>
+        </div>
+
+        <div class="logo">
+          <a href="index.html">M-PIC</a>
+        </div>
+
+        <ul class="link-list">
+          <li class="link-item">
+            <a href="../../index.html">Home</a>
+          </li>
+          <li class="link-item">
+            <a href="../../index.html#about">About</a>
+          </li>
+          <li class="link-item">
+            <a href="../gallery/gallery.html">Gallery</a>
+          </li>
+          <li class="link-item">
+            <a href="../editor/editor.html">Editor</a>
+          </li>
+        </ul>
+
+        <div class="auth active">
+          <a href="../auth/login.html">
+            <img
+              class="user-icon"
+              src="../../resources/user.png"
+              alt="user.jpg"
+            />
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <section class="auth-section">
+      <div class="auth-wrapper">
+        <form class="auth-form">
+          <h2>Login</h2>
+          <div class="form-item">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              placeholder="Enter email"
+              name="email"
+              required
+            />
+          </div>
+          <div class="form-item">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              placeholder="Enter password"
+              name="password"
+              required
+            />
+          </div>
+          <div class="form-item">
+            <button>Login</button>
+          </div>
+          <div class="form-item redirect">
+            Don't have an account ? <a href="./signup.html">Signup</a>
+          </div>
+        </form>
+      </div>
+    </section>
+  </body>
+</html>

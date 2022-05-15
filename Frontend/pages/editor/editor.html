@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../../styles/main.css" />
+    <link rel="stylesheet" href="editor.css" />
+
+    <link rel="stylesheet" href="../../components/navbar/navbar.css" />
+    <script src="../../components/navbar/navbar.js" defer></script>
+
+    <script src="editor.js" defer></script>
+
+    <link rel="stylesheet" href="../../components/footer/footer.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-wrapper">
+        <div class="menu">
+          <div class="line"></div>
+          <div class="line hide"></div>
+          <div class="line"></div>
+        </div>
+
+        <div class="logo">
+          <a href="index.html">M-PIC</a>
+        </div>
+
+        <ul class="link-list">
+          <li class="link-item">
+            <a href="../../index.html">Home</a>
+          </li>
+          <li class="link-item">
+            <a href="../../index.html#about">About</a>
+          </li>
+          <li class="link-item">
+            <a href="../gallery/gallery.html">Gallery</a>
+          </li>
+          <li class="link-item active">
+            <a href="../editor/editor.html">Editor</a>
+          </li>
+        </ul>
+
+        <div class="auth">
+          <a href="../auth/login.html">
+            <img
+              class="user-icon"
+              src="../../resources/user.png"
+              alt="user.jpg"
+            />
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <section class="editor">
+      <div class="editor-wrapper">
+        <div class="editor-actions">
+          <div class="editor-action link">
+            <a href="../gallery/gallery.html">Choose from gallery</a>
+          </div>
+          <p>or</p>
+          <div class="editor-action">
+            <span>Upload new</span>
+            <input
+              class="editor-action-input"
+              type="file"
+              accept="image/png, image/jpeg, image/jpg"
+            />
+          </div>
+        </div>
+        <div class="editor-main">
+          <div class="image-to-edit-container">
+            <div class="image-to-edit">
+              <img
+                src="https://scitechdaily.com/images/New-Hubble-Image-Shows-Part-of-the-Large-Magellanic-Cloud.jpg"
+                alt="img.jpg"
+              />
+            </div>
+            <div class="image-actions">
+              <div>
+                <button class="btn save">Save</button>
+                <button class="btn share">Share</button>
+              </div>
+              <button class="btn delete">Delete</button>
+            </div>
+          </div>
+
+          <div class="editor-container">
+            <div class="filters-container">
+              <div class="editor-menu">
+                <select name="editor" id="editor" class="editor-select">
+                  <option value="Filters" default selected>Filters</option>
+                  <option value="Masks">Masks</option>
+                  <option value="Collages">Collages</option>
+                  <option value="Animations">Animations</option>
+                </select>
+              </div>
+
+              <div class="filters">
+                <div class="filter">
+                  <label for="brightness">Brightness </label>
+                  <input
+                    type="range"
+                    id="brightness"
+                    name="brightness"
+                    min="0"
+                    max="200"
+                    value="100"
+                  />
+                  <span>100%</span>
+                </div>
+                <div class="filter">
+                  <label for="contrast">Contrast </label>
+                  <input
+                    type="range"
+                    id="contrast"
+                    name="contrast"
+                    min="0"
+                    max="200"
+                    value="100"
+                  />
+                  <span>100%</span>
+                </div>
+                <div class="filter">
+                  <label for="saturate">Saturation </label>
+                  <input
+                    type="range"
+                    id="saturate"
+                    name="saturate"
+                    min="0"
+                    max="100"
+                    value="50"
+                  />
+                  <span>50%</span>
+                </div>
+                <div class="filter">
+                  <label for="grayscale">Grayscale </label>
+                  <input
+                    type="range"
+                    id="grayscale"
+                    name="grayscale"
+                    min="0"
+                    max="100"
+                    value="50"
+                  />
+                  <span>50%</span>
+                </div>
+                <div class="filter">
+                  <label for="sepia">Sepia </label>
+                  <input
+                    type="range"
+                    id="sepia"
+                    name="sepia"
+                    min="0"
+                    max="200"
+                    value="100"
+                  />
+                  <span>100%</span>
+                </div>
+                <div class="filter">
+                  <label for="hue-rotate">Hue rotate </label>
+                  <input
+                    type="range"
+                    id="hue-rotate"
+                    name="hue-rotate"
+                    min="0"
+                    max="200"
+                    value="100"
+                  />
+                  <span>100°</span>
+                </div>
+                <div class="filter">
+                  <label for="invert">Invert </label>
+                  <input
+                    type="range"
+                    id="invert"
+                    name="invert"
+                    min="0"
+                    max="100"
+                    value="50"
+                  />
+                  <span>50%</span>
+                </div>
+                <div class="filter">
+                  <label for="blur">Blur </label>
+                  <input
+                    type="range"
+                    id="blur"
+                    name="blur"
+                    min="0"
+                    max="20"
+                    value="10"
+                  />
+                  <span>10px</span>
+                </div>
+                <div class="filter">
+                  <label for="opacity">Opacity </label>
+                  <input
+                    type="range"
+                    id="opacity"
+                    name="opacity"
+                    min="0"
+                    max="100"
+                    value="50%"
+                  />
+                  <span>50%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="discard-filters-container">
+              <button class="btn discard">Discard</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="footer-wrapper">
+        <div class="footer-section">
+          <h3>Authors</h3>
+          <p>Munteanu Catalin</p>
+          <p>Anicai Denis</p>
+          <p>Popovici Marian</p>
+        </div>
+        <div class="footer-section">
+          <h3>Menu</h3>
+          <a href="">Home</a>
+          <a href="">About</a>
+          <a href="">Editor</a>
+          <a href="">Gallery</a>
+        </div>
+        <div class="footer-section">
+          <h3>Repository</h3>
+          <a href="">GIT</a>
+        </div>
+      </div>
+      <div class="copyrights">© Copyrights 2022</div>
+    </footer>
+  </body>
+</html>

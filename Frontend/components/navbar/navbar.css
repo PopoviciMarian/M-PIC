@@ -1,0 +1,135 @@
+.navbar {
+  width: 100%;
+  background-color: var(--yellow);
+}
+
+.navbar-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0.5rem 0;
+  max-width: 90rem;
+}
+
+.logo {
+  border-radius: 5rem;
+  font-weight: bold;
+  font-size: 2rem;
+  font-family: 'Gill Sans MT', sans-serif;
+  transition: all 0.2s ease-in-out;
+  padding-left: 0.5rem;
+}
+.logo:hover {
+  transform: rotate(360deg);
+}
+.link-list {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  width: 25rem;
+}
+.link-item > a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  transition: all 0.2s ease-in-out;
+}
+.link-item:hover > a,
+.link-item.active > a {
+  background-color: var(--black);
+  color: var(--yellow);
+}
+
+.auth > a {
+  border: 1px solid transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+}
+.auth:hover,
+.auth.active {
+  filter: brightness(90%);
+  background-color: var(--yellow);
+}
+.user-icon {
+  width: 2rem;
+  height: 2rem;
+}
+.user-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.menu {
+  display: none;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+}
+.menu > .line {
+  width: 100%;
+  height: 0.25rem;
+  background-color: var(--black);
+  transition: all 0.1s ease-in-out;
+}
+.cross {
+  transform: rotate(45deg) translateY(0.6rem);
+  transition: all 0.1s ease-in-out;
+  position: fixed;
+  z-index: 2;
+}
+.cross .line:nth-of-type(2).hide {
+  display: none;
+}
+.cross .line:nth-last-of-type(1) {
+  transform: rotate(90deg) translateX(-1.25rem);
+}
+.link-list.show {
+  transform: translateY(0);
+}
+@media only screen and (max-width: 760px) {
+  .navbar {
+    padding: 0.5rem 1rem;
+  }
+  .link-list {
+    transform: translateY(-120%);
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--yellow);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .link-item {
+    width: 80%;
+  }
+  .link-item > a {
+    padding: 2rem;
+    font-size: 2rem;
+  }
+  .menu {
+    width: 3rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem;
+  }
+  .menu:hover {
+    filter: brightness(90%);
+    background-color: var(--yellow);
+  }
+  .cross:hover {
+    filter: unset;
+    background-color: unset;
+  }
+}

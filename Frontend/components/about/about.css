@@ -1,0 +1,32 @@
+.about {
+  width: 100%;
+  background-color: var(--yellow);
+}
+
+.about-wrapper {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 3rem;
+}
+
+.about-wrapper > .header {
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: 'Gill Sans MT', sans-serif;
+}
+.about-wrapper > .content {
+  font-size: 1.75rem;
+  padding: 1rem 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .about-wrapper > .content {
+    font-size: 1.5rem;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .about-wrapper > .content {
+    font-size: 1.25rem;
+  }
+}

@@ -1,0 +1,43 @@
+:root {
+  --yellow: rgb(250, 230, 60);
+  --black: rgb(29, 29, 29);
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+ul {
+  list-style: none;
+}
+li {
+  padding: 0;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+.main {
+  width: 100%;
+}
+.main-wrapper {
+  width: 90rem;
+  margin: 0 auto;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(171, 169, 169);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(149, 147, 147);
+}

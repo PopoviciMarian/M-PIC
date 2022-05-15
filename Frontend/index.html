@@ -1,43 +1,173 @@
 <!DOCTYPE html>
-<html  lang="en">
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='css/navbar.css'>
-<script src='main.js'></script>
-</head>
-<body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>M-PIC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles/main.css" />
 
-    <div class="nav">
-        <input type="checkbox" id="nav-check">
-        <div class="nav-header">
-          <div class="nav-title">
-            <a href="/">M-PIC</a> 
+    <link rel="stylesheet" href="components/navbar/navbar.css" />
+    <script src="components/navbar/navbar.js" defer></script>
+
+    <link rel="stylesheet" href="components/hero/hero.css" />
+    <script src="components/hero/hero.js" defer></script>
+
+    <link rel="stylesheet" href="components/about/about.css" />
+
+    <link rel="stylesheet" href="components/help/help.css" />
+
+    <link rel="stylesheet" href="components/footer/footer.css" />
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <div class="navbar-wrapper">
+        <div class="menu">
+          <div class="line"></div>
+          <div class="line hide"></div>
+          <div class="line"></div>
+        </div>
+
+        <div class="logo">
+          <a href="index.html">M-PIC</a>
+        </div>
+
+        <ul class="link-list">
+          <li class="link-item active">
+            <a href="index.html">Home</a>
+          </li>
+          <li class="link-item">
+            <a href="#about">About</a>
+          </li>
+          <li class="link-item">
+            <a href="pages/gallery/gallery.html">Gallery</a>
+          </li>
+          <li class="link-item">
+            <a href="pages/editor/editor.html">Editor</a>
+          </li>
+        </ul>
+
+        <div class="auth">
+          <a href="/pages/auth/login.html">
+            <img
+              class="user-icon"
+              src="../../resources/user.png"
+              alt="user.jpg"
+            />
+          </a>
+        </div>
+      </div>
+    </nav>
+    <main class="main">
+      <!-- home -->
+      <section class="hero">
+        <div class="hero-wrapper">
+          <div class="motto">
+            <h1>M-PIC</h1>
+            <p>All your pictures together</p>
+          </div>
+          <div class="pics">
+            <div class="pic">
+              <img
+                src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"
+                alt="pic.jpg"
+              />
+            </div>
+            <div class="pic">
+              <img
+                src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"
+                alt="pic.jpg"
+              />
+            </div>
+            <div class="pic">
+              <img
+                src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"
+                alt="pic.jpg"
+              />
+            </div>
+            <div class="pic">
+              <img
+                src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"
+                alt="pic.jpg"
+              />
+            </div>
+            <div class="pic">
+              <img
+                src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"
+                alt="pic.jpg"
+              />
+            </div>
           </div>
         </div>
-        <div class="nav-btn">
-          <label for="nav-check">
-            <span></span>
-            <span></span>
-            <span></span>
-          </label>
+      </section>
+      <section class="about" id="about">
+        <div class="about-wrapper">
+          <div class="header">About</div>
+          <p class="content">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo
+            necessitatibus quod eveniet sint, animi ex facere dolore eos
+            voluptas, sunt quae voluptates qui accusantium vitae corrupti nihil
+            dolorem nesciunt accusamus aut sit? Adipisci incidunt quaerat
+            veritatis maxime dolor aliquam possimus tenetur, eligendi,
+            temporibus cupiditate animi officiis fugiat blanditiis explicabo
+            repellendus!
+          </p>
         </div>
-        
-        <div class="nav-links">
-          <a href="pages/about.html">About</a>
-          <a href="pages/login.html" >Login</a>
-          <a href="pages/register.html" >Register</a>
+      </section>
+      <section class="help">
+        <div class="help-wrapper">
+          <a href="" class="action">
+            <div class="img">
+              <img
+                src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"
+                alt="image.jpg"
+              />
+            </div>
+            <p class="text">Import</p>
+          </a>
+          <a href="" class="action">
+            <div class="img">
+              <img
+                src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"
+                alt="image.jpg"
+              />
+            </div>
+            <p class="text">Edit</p>
+          </a>
+          <a href="" class="action">
+            <div class="img">
+              <img
+                src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"
+                alt="image.jpg"
+              />
+            </div>
+            <p class="text">Share</p>
+          </a>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="footer-wrapper">
+        <div class="footer-section">
+          <h3>Authors</h3>
+          <p>Munteanu Catalin</p>
+          <p>Anicai Denis</p>
+          <p>Popovici Marian</p>
+        </div>
+        <div class="footer-section">
+          <h3>Menu</h3>
+          <a href="">Home</a>
+          <a href="">About</a>
+          <a href="">Editor</a>
+          <a href="">Gallery</a>
+        </div>
+        <div class="footer-section">
+          <h3>Repository</h3>
+          <a href="">GIT</a>
         </div>
       </div>
-      <div id="main-text">
-          <h1>
-              ALL PLATFORMS HERE
-
-          </h1>
-      </div>
-
-    
-</body>
+      <div class="copyrights">© Copyrights 2022</div>
+    </footer>
+  </body>
 </html>
