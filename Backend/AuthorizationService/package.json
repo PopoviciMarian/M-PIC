@@ -1,0 +1,24 @@
+{
+  "name": "rq_server",
+  "version": "1.0.0",
+  "description": "Server for RealQuest",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint",
+    "test": "node testing/testrun.js",
+    "start": "node index.js"
+  },
+  "author": "SPCCSG",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^16.0.1",
+    "http": "0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.3.4",
+    "url": "^0.11.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.0.0"
+  }
+}
