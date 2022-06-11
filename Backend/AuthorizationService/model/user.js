@@ -1,26 +1,9 @@
-let mongodb = require("mongoose")
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
-let userSchema = new mongodb.Schema(
-    {
-        name:{type:String, required:true},
-        email:{type:String, required:true},
-        password:{type:String, required:true}
-    },
-    {
-        timestamps: true
-    }
-)
-
-let userCollection = mongodb.model('User', userSchema, 'users')
+const pool = require("../db")
 
 class UserModel{
-   async getUsers  (){
-        let res = await userCollection.find({})
-        return res;
-    }
-
+   
     validatePassword = (password) =>{
         return String(password)
           .match(
@@ -48,15 +31,16 @@ class UserModel{
             return {code: 400, message: "Password should contain at least 1 number, 1 upper, 1 lowercase and at least 8 from the mentioned characters !"}
         }
         password = bcrypt.hashSync(password, parseInt(process.env.BCRYPT_SALT));
-        if(await userCollection.findOne({email:body['email']}) !== null){
+        const users_email = await pool.query(`SELECT * FROM users WHERE email = $1::text`, [body['email']])
+        if(users_email.rows.length !== 0){
             return {code: 409, message : "User already exists!"}
         }
-        const mongoRes = await userCollection.create({name : body['name'] , email : body['email'], password});
-        if (mongoRes['name'] === body["name"]){
+        const create_user = await pool.query(`INSERT INTO users (name, email, password) VALUES ($1::text, $2::text, $3::text)`, [body['name'], body['email'], password])
+        if (create_user.rowCount == 1){
             return {code : 201, message: "User created!"}
         }
         else{
-            return {code: 500, message : "Mongo error!"}
+            return {code: 500, message : "Database error!"}
         }
     }
 
@@ -64,10 +48,11 @@ class UserModel{
         if(body['email'] === undefined || body['password'] === undefined){
             return {code : 400, message: 'Email and password must be provided!'};
         }
-        const user = await userCollection.findOne({email:body['email']});
-        if (user === null){
+        var user = await pool.query(`SELECT * FROM users WHERE email = $1::text`, [body['email']])
+        if (user.rows.length === 0){
             return {code : 403, message: 'Wrong input!'};
         }
+        user = user.rows[0]
         if(bcrypt.compareSync(body['password'], user['password'])){
             var token = jwt.sign({
                 data: {email: body['email'], id: user['id']}
@@ -82,12 +67,16 @@ class UserModel{
             let token = req['rawHeaders'][1].slice(7)
             var decoded = jwt.verify(token, process.env.JWT_PK);
             const id = decoded['data']['id'];
-            const mongoRes =  await userCollection.deleteOne({id});
-            if(mongoRes['acknowledged'] === true){
-                return {code: 200, message : mongoRes};
+            var res = await pool.query(`DELETE FROM users WHERE id = $1::int`, [id])
+            
+            if(res.rowCount === 1){
+                return {code: 200, message : "User has been deleted successfully!"};
+            }
+            if(res.rowCount === 0){
+                throw "User not found";
             }
             else{
-                return {code :500, message: "Mongo error!" };
+                return {code :500, message: "Database error or user not found!" };
             }  
           } catch(err) {
                 return {code : 403, message: 'Wrong input or expired token!'};
@@ -99,8 +88,8 @@ class UserModel{
             let token = req['rawHeaders'][1].slice(7)
             var decoded = jwt.verify(token, process.env.JWT_PK);
             const id = decoded['data']['id'];
-            if(body["_id"] !== undefined && body['_id'] !== id){
-                return {code: 400, message : "_id cannot be updated!"}
+            if(body["id"] !== undefined && body['id'] !== id){
+                return {code: 400, message : "id cannot be updated!"}
             }
             if(body['password'] !== undefined){
                 let password = body['password']
@@ -114,14 +103,25 @@ class UserModel{
                 if(this.validateEmail(body['email']) === null){
                     return {code : 400, message : "Invalid email address!"}
                 }
-                const user = await userCollection.findOne({email:body['email']})
-                if(user !== null &&  user["_id"].toString() !== id){
+                const user = await pool.query(`SELECT * FROM users WHERE email = $1::text`, [body['email']])
+                if(user.rows.length !== 0 &&  user.rows[0]["id"].toString() !== id){
                     return {code: 409, message : "User with this email already exists!"}
                 }
             }
-            const mongoRes = await userCollection.findByIdAndUpdate(id, body);
-            if (mongoRes === null){
+            
+            var user = await pool.query(`SELECT * FROM users WHERE id = $1::int`, [id])
+            if (user.rows.length === 0){
                 return {code : 400, message: "User not found!"}
+            }
+            for(const field in body){
+                if(field in user.rows[0]){
+                    if(field === 'name')
+                        await pool.query('UPDATE users SET name = $1 WHERE id = $2', [body[field], id])
+                    if(field === 'email')
+                        await pool.query('UPDATE users SET email = $1 WHERE id = $2', [body[field], id])
+                    if(field === 'password')
+                        await pool.query('UPDATE users SET password = $1 WHERE id = $2', [body[field], id])    
+                }
             }
             return {code: 200, message: "User successfully updated!"}
         }catch (e){
@@ -133,15 +133,15 @@ class UserModel{
             let token = req['rawHeaders'][1].slice(7)
             var decoded = jwt.verify(token, process.env.JWT_PK);
             const id = decoded['data']['id'];
-            const mongoRes = await userCollection.findById(id);
-            if(mongoRes !== null){
-                return {code:200, message : mongoRes}
+            var user = await pool.query(`SELECT * FROM users WHERE id = $1::int`, [id])
+            if(user.rows.length !== 0){
+                return {code:200, message : user.rows[0]}
             }
             else{
                 return {code: 400, message : "User not found!"}
             }
         }catch (e){
-            return {code: 500, message: e}
+            return {code: 400, message: e}
         }
     }
 }

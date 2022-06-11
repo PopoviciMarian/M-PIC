@@ -1,12 +1,13 @@
 const http = require('http');
 let router = require('./routes/routes');
 let logging = require('./utils/logging');
-let pool = require('./db')
+let mongoose = require('mongoose');
 require('dotenv').config();
 
-pool.query("SELECT NOW()")
-    .then(() => {
-        logging.info(NAMESPACE, 'Postgres Connected');
+mongoose
+    .connect(process.env.MONGO_URL)
+    .then((result) => {
+        logging.info(NAMESPACE, 'Mongo Connected');
     })
     .catch((error) => {
         logging.error(NAMESPACE, error.message, error);
