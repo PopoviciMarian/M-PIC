@@ -17,6 +17,11 @@ class ImageController {
         imageView.getPrivateImages(res, modelRes);
         res.end();
     }
+    async deleteImage(req, res, body){
+        let modelRes = await imageModel.deleteImage(req);
+        imageView.deleteImageView(res, modelRes);
+        res.end();
+    }
 }
 
 

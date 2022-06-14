@@ -34,3 +34,11 @@ function serverFunc(req, res) {
 
 let server = http.createServer(serverFunc);
 server.listen(port);
+
+
+var connect = require('connect');
+ var serveStatic = require('serve-static');
+
+ connect()
+     .use(serveStatic(__dirname))
+     .listen(process.env.IMAGES_PORT, () => console.log(`Images server is running at ${process.env.IMAGES_PORT}`));

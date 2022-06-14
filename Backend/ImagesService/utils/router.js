@@ -55,19 +55,15 @@ class Router{
             let _url = url.parse(req.url, true);
             if (route.path === _url.pathname && req.method === route.method){
                 if (route.args !== undefined){
-                
                         route.controller(req, res, JSON.parse(body), ...route.args);
-               
                 }
                 else {
-                   
                         try{
                             route.controller(req, res, JSON.parse(body));
                         }
                         catch(e){
                             route.controller(req, res, body);
                         } 
-                   
                 }
                 return;
             }
