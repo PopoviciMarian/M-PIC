@@ -50,6 +50,7 @@ class ImageModel{
         if(image_type !== 'private' && image_type !== 'public'){
             return {code : 400, message : "type must be private or public!"}
         }
+        
         const bb = busboy({ headers: req.headers });
         bb.on('file', (name, file, info) => {
             file_type = info.filename.split(".").pop();
@@ -74,6 +75,7 @@ class ImageModel{
 
     async getPrivateImages(req){
         try{
+            
             let token = req['rawHeaders'][1].slice(7)
             var options = {
                 'method': 'GET',
