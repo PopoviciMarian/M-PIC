@@ -8,13 +8,11 @@
 
     <link rel="stylesheet" href="../../styles/main.css" />
     <link rel="stylesheet" href="editor.css" />
-
     <link rel="stylesheet" href="../../components/navbar/navbar.css" />
-    <script src="../../components/navbar/navbar.js" defer></script>
-
-    <script src="editor.js" defer></script>
-
     <link rel="stylesheet" href="../../components/footer/footer.css" />
+
+    <script src="../../components/navbar/navbar.js" defer></script>
+    <script src="./editorSwitch.js" defer></script>
   </head>
   <body>
     <nav class="navbar">
@@ -58,7 +56,7 @@
 
     <section class="editor">
       <div class="editor-wrapper">
-        <div class="editor-actions">
+        <!-- <div class="editor-actions">
           <div class="editor-action link">
             <a href="../gallery/gallery.html">Choose from gallery</a>
           </div>
@@ -71,14 +69,60 @@
               accept="image/png, image/jpeg, image/jpg"
             />
           </div>
-        </div>
+        </div> -->
         <div class="editor-main">
           <div class="image-to-edit-container">
             <div class="image-to-edit">
-              <img
-                src="https://scitechdaily.com/images/New-Hubble-Image-Shows-Part-of-the-Large-Magellanic-Cloud.jpg"
-                alt="img.jpg"
-              />
+
+              <!-- <div class="template1 template" id="template">
+                <div class="template-row">
+                  <div class="template-image">
+                    <img src="../../resources/placeholder.png" alt="" />
+                  </div>
+                  <div class="template-image">
+                    <img src="../../resources/placeholder.png" alt="" />
+                  </div>
+                </div>
+
+                <div class="template-row">
+                  <div class="template-image">
+                    <img src="../../resources/placeholder.png" alt="" />
+                  </div>
+                  <div class="template-image">
+                    <img src="../../resources/placeholder.png" alt="" />
+                  </div>
+                </div>
+              </div> -->
+              <!-- <div class="image-placeholder-container">
+                <div class="image-placeholder">
+                  <img src="../../resources/placeholder.png" alt="" />
+                </div>
+              </div> -->
+
+              <!-- <img id="main-image" src="../../resources/placeholder.png" alt="" /> -->
+
+              <!-- <div class="template-2 template" id="template">
+                <div class="template-row">
+                  <div class="template-input-container">
+                    <input
+                      type="file"
+                      accept="image/png, image/jpeg, image/jpg"
+                    />
+                    <div class="template-image">
+                      <img src="../../resources/placeholder.png" alt="" />
+                    </div>
+                  </div>
+                  <div class="template-input-container">
+                    <input
+                      type="file"
+                      accept="image/png, image/jpeg, image/jpg"
+                    />
+                    <div class="template-image">
+                      <img src="../../resources/placeholder.png" alt="" />
+                    </div>
+                  </div>
+                </div>
+              </div> -->
             </div>
             <div class="image-actions">
               <div>
@@ -92,7 +136,7 @@
           <div class="editor-container">
             <div class="filters-container">
               <div class="editor-menu">
-                <select name="editor" id="editor" class="editor-select">
+                <select name="editor" id="editor-select" class="editor-select">
                   <option value="Filters" default selected>Filters</option>
                   <option value="Masks">Masks</option>
                   <option value="Collages">Collages</option>
@@ -100,116 +144,21 @@
                 </select>
               </div>
 
-              <div class="filters">
-                <div class="filter">
-                  <label for="brightness">Brightness </label>
-                  <input
-                    type="range"
-                    id="brightness"
-                    name="brightness"
-                    min="0"
-                    max="200"
-                    value="100"
-                  />
-                  <span>100%</span>
+              <!-- -->
+
+              <!-- <div class="collages-container">
+                <div class="template-container">
+                  <p>Select template</p>
+                  <div class="template-grid">
+                    <div class="active template" id="template1">
+                      <img src="../../resources/template1.png" alt="" />
+                    </div>
+                    <div class="template" id="template2">
+                      <img src="../../resources/template2.png" alt="" />
+                    </div>
+                  </div>
                 </div>
-                <div class="filter">
-                  <label for="contrast">Contrast </label>
-                  <input
-                    type="range"
-                    id="contrast"
-                    name="contrast"
-                    min="0"
-                    max="200"
-                    value="100"
-                  />
-                  <span>100%</span>
-                </div>
-                <div class="filter">
-                  <label for="saturate">Saturation </label>
-                  <input
-                    type="range"
-                    id="saturate"
-                    name="saturate"
-                    min="0"
-                    max="100"
-                    value="50"
-                  />
-                  <span>50%</span>
-                </div>
-                <div class="filter">
-                  <label for="grayscale">Grayscale </label>
-                  <input
-                    type="range"
-                    id="grayscale"
-                    name="grayscale"
-                    min="0"
-                    max="100"
-                    value="50"
-                  />
-                  <span>50%</span>
-                </div>
-                <div class="filter">
-                  <label for="sepia">Sepia </label>
-                  <input
-                    type="range"
-                    id="sepia"
-                    name="sepia"
-                    min="0"
-                    max="200"
-                    value="100"
-                  />
-                  <span>100%</span>
-                </div>
-                <div class="filter">
-                  <label for="hue-rotate">Hue rotate </label>
-                  <input
-                    type="range"
-                    id="hue-rotate"
-                    name="hue-rotate"
-                    min="0"
-                    max="200"
-                    value="100"
-                  />
-                  <span>100°</span>
-                </div>
-                <div class="filter">
-                  <label for="invert">Invert </label>
-                  <input
-                    type="range"
-                    id="invert"
-                    name="invert"
-                    min="0"
-                    max="100"
-                    value="50"
-                  />
-                  <span>50%</span>
-                </div>
-                <div class="filter">
-                  <label for="blur">Blur </label>
-                  <input
-                    type="range"
-                    id="blur"
-                    name="blur"
-                    min="0"
-                    max="20"
-                    value="10"
-                  />
-                  <span>10px</span>
-                </div>
-                <div class="filter">
-                  <label for="opacity">Opacity </label>
-                  <input
-                    type="range"
-                    id="opacity"
-                    name="opacity"
-                    min="0"
-                    max="100"
-                    value="50%"
-                  />
-                  <span>50%</span>
-                </div>
-              </div>
+              </div> -->
             </div>
 
             <div class="discard-filters-container">

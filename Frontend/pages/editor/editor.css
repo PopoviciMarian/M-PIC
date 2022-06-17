@@ -13,6 +13,19 @@
   display: flex;
 }
 
+.dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(19, 19, 19, 0.9);
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .image-to-edit-container {
   width: 70%;
   display: flex;
@@ -47,11 +60,16 @@
   height: 30rem;
   padding: 1rem;
   background-color: rgb(235, 232, 232);
+  cursor: pointer;
+  position: relative;
 }
 .image-to-edit img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+.image-to-edit img:hover {
+  filter: brightness(95%);
 }
 
 .editor-container {
@@ -177,6 +195,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: antiquewhite;
+  padding: 1rem;
 }
 .editor-actions > p {
   font-size: 1.5rem;
@@ -273,4 +293,94 @@
   .filters-container {
     height: 20rem;
   }
+}
+
+/*  */
+
+.image-placeholder-container {
+  position: relative;
+  background-color: whitesmoke;
+  width: 100%;
+  height: 100%;
+  margin: 0.1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.image-placeholder-container:hover {
+  filter: brightness(95%);
+}
+
+.image-placeholder-container .image-placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* collage editor */
+.collages-container {
+  padding: 1rem;
+  padding-top: 0;
+}
+.collages-container p {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+.template-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+.template-grid div {
+  cursor: pointer;
+  width: 5rem;
+  height: 5rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.25rem;
+  border: 2px solid var(--black);
+}
+
+.template-grid div img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.template-grid div:hover {
+  filter: brightness(80%);
+}
+
+.template-grid div.active {
+  border: 0.5rem solid var(--black);
+}
+
+/* collage images */
+.template {
+  background-color: var(--black);
+  width: 100%;
+  height: 100%;
+  padding: 0.1rem;
+  /* box-sizing: border-box; */
+}
+.template1 .template-row {
+  width: 100%;
+  height: 50%;
+  display: flex;
+}
+
+.template2 .template-row {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.template-image {
+  width: 50%;
+  height: 100%;
+  padding: 0.1rem;
+  /* box-sizing: border-box; */
+}
+.template-image img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
