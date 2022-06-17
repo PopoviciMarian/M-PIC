@@ -14,28 +14,30 @@ const loadScript = (name) => {
   head.appendChild(script);
 };
 
-const renderEditor = (name) => {
+const renderEditor = async (name) => {
   const container = document.querySelector('.filters-container');
 
   container.querySelector('#dynamic-rendered')?.remove();
 
-  import(`./components/html/html_${name}.js`).then((html) => {
-    const parser = new DOMParser();
-    const content = parser
-      .parseFromString(html.default, 'text/html')
-      .querySelector('#dynamic-rendered');
-    container.append(content);
-  });
+  const html = await import(`./components/html/html_${name}.js`);
+
+  const parser = new DOMParser();
+  const content = parser
+    .parseFromString(html.default, 'text/html')
+    .querySelector('#dynamic-rendered');
+  container.append(content);
+
+  return html;
 };
 
 let value = 'filters';
+renderEditor(value).then(() => {
+  loadScript(value);
+});
 
-renderEditor(value);
-loadScript(value);
-
-editSelector.addEventListener('change', () => {
+editSelector.addEventListener('change', async () => {
   value = editSelector.value.toLowerCase();
 
-  renderEditor(value);
+  await renderEditor(value);
   loadScript(value);
 });

@@ -3,8 +3,6 @@
   container.innerHTML = '';
 
   const importTemplate = async (id) => {
-    const t = container.querySelector('#template');
-
     container.querySelector('#template')?.remove();
 
     const done = await import(`../html/templates/${id}.js`).then((html) => {
@@ -15,7 +13,7 @@
       container.append(content);
     });
 
-    return document.querySelectorAll('.template');
+    return done;
   };
 
   const selectImages = () => {
@@ -75,19 +73,20 @@
     });
   };
 
-  importTemplate('template1').then((templates) => {
-    templates.forEach((t) => {
-      t.addEventListener('click', (event) => {
-        console.log(event);
-        templates.forEach((te) => {
-          te.classList.remove('active');
-        });
-
-        t.classList.add('active');
-
-        importTemplate(t.id).then(() => selectImages());
+  const templateBtns = document.querySelectorAll('.template');
+  templateBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      templateBtns.forEach((tBtn) => {
+        tBtn.classList.remove('active');
       });
+
+      btn.classList.add('active');
+
+      importTemplate(btn.id).then(() => selectImages());
     });
+  });
+
+  importTemplate('template1').then(() => {
     selectImages();
   });
 })();
