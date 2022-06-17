@@ -2,8 +2,6 @@
   const container = document.querySelector('.image-to-edit');
   container.innerHTML = '';
 
-  const templates = document.querySelectorAll('.template');
-
   const importTemplate = async (id) => {
     const t = container.querySelector('#template');
 
@@ -17,20 +15,8 @@
       container.append(content);
     });
 
-    return done;
+    return document.querySelectorAll('.template');
   };
-
-  templates.forEach((t) => {
-    t.addEventListener('click', () => {
-      templates.forEach((te) => {
-        te.classList.remove('active');
-      });
-
-      t.classList.add('active');
-
-      importTemplate(t.id).then(() => selectImages());
-    });
-  });
 
   const selectImages = () => {
     document.querySelectorAll('.template-image img').forEach((img) => {
@@ -66,33 +52,42 @@
           });
 
           chooseInput.addEventListener('click', () => {
-            return import('../html/html_gallery.js')
-              .then((html) => {
-                const parser = new DOMParser();
-                const content = parser
-                  .parseFromString(html.default, 'text/html')
-                  .querySelector('.gallery-selector');
-                const body = document.querySelector('body');
-                body.append(content);
-              })
-              .then(() => {
-                const galleryItems = document.querySelectorAll('.gallery-item');
-                galleryItems.forEach((item) => {
-                  item.addEventListener('click', (e) => {
-                    let img = document.querySelector('#' + event.target.id);
-                    img.setAttribute('src', e.target.src);
-                    document.querySelector('.gallery-selector').remove();
-                    document.querySelector('.dialog').remove();
-                  });
+            import('../html/html_gallery.js').then((html) => {
+              const parser = new DOMParser();
+              const content = parser
+                .parseFromString(html.default, 'text/html')
+                .querySelector('.gallery-selector');
+              const body = document.querySelector('body');
+              body.append(content);
+              const galleryItems = document.querySelectorAll('.gallery-item');
+              galleryItems.forEach((item) => {
+                item.addEventListener('click', (e) => {
+                  let img = document.querySelector('#' + event.target.id);
+                  img.setAttribute('src', e.target.src);
+                  document.querySelector('.gallery-selector').remove();
+                  document.querySelector('.dialog').remove();
                 });
               });
+            });
           });
         });
       });
     });
   };
 
-  importTemplate('template1').then(() => {
+  importTemplate('template1').then((templates) => {
+    templates.forEach((t) => {
+      t.addEventListener('click', (event) => {
+        console.log(event);
+        templates.forEach((te) => {
+          te.classList.remove('active');
+        });
+
+        t.classList.add('active');
+
+        importTemplate(t.id).then(() => selectImages());
+      });
+    });
     selectImages();
   });
 })();
