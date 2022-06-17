@@ -4,20 +4,20 @@
 
   const templates = document.querySelectorAll('.template');
 
-  const importTemplate = (id) => {
+  const importTemplate = async (id) => {
     const t = container.querySelector('#template');
-
-    if (t && t.classList.contains(id)) return;
 
     container.querySelector('#template')?.remove();
 
-    return import(`../html/templates/${id}.js`).then((html) => {
+    const done = await import(`../html/templates/${id}.js`).then((html) => {
       const parser = new DOMParser();
       const content = parser
         .parseFromString(html.default, 'text/html')
         .querySelector('#template');
       container.append(content);
     });
+
+    return done;
   };
 
   templates.forEach((t) => {
@@ -45,6 +45,7 @@
           body.append(content);
 
           const uploadInput = document.querySelector('.editor-action-input');
+          const chooseInput = document.querySelector('.choose-action');
 
           uploadInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
@@ -62,6 +63,29 @@
             reader.readAsDataURL(file);
 
             document.querySelector('.dialog').remove();
+          });
+
+          chooseInput.addEventListener('click', () => {
+            return import('../html/html_gallery.js')
+              .then((html) => {
+                const parser = new DOMParser();
+                const content = parser
+                  .parseFromString(html.default, 'text/html')
+                  .querySelector('.gallery-selector');
+                const body = document.querySelector('body');
+                body.append(content);
+              })
+              .then(() => {
+                const galleryItems = document.querySelectorAll('.gallery-item');
+                galleryItems.forEach((item) => {
+                  item.addEventListener('click', (e) => {
+                    let img = document.querySelector('#' + event.target.id);
+                    img.setAttribute('src', e.target.src);
+                    document.querySelector('.gallery-selector').remove();
+                    document.querySelector('.dialog').remove();
+                  });
+                });
+              });
           });
         });
       });

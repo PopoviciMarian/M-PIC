@@ -2,8 +2,8 @@ const dialog = `
 
 <section class="dialog">
 <div class="editor-actions">
-  <div class="editor-action link">
-    <a href="../gallery/gallery.html">Choose from gallery</a>
+  <div class="choose-action editor-action">
+    <div >Choose from gallery</div>
   </div>
   <div class="editor-action">
     <span>Upload new</span>
