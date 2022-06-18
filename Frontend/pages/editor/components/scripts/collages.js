@@ -21,7 +21,7 @@
       img.addEventListener('click', (event) => {
         const body = document.querySelector('body');
 
-        import('../dialog/html_dialog.js').then((html) => {
+        import('../html/html_dialog.js').then((html) => {
           const parser = new DOMParser();
           const content = parser
             .parseFromString(html.default, 'text/html')

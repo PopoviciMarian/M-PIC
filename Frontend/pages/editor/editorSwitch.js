@@ -1,5 +1,6 @@
 const editSelector = document.querySelector('#editor-select');
 
+// dynamic script load
 const loadScript = (name) => {
   const head = document.querySelector('head');
 
@@ -10,10 +11,12 @@ const loadScript = (name) => {
   const script = document.createElement('script');
   script.setAttribute('src', `./components/scripts/${name}.js`);
   script.setAttribute('id', 'script');
+  script.setAttribute('type', 'module');
 
   head.appendChild(script);
 };
 
+// dynamic html redering
 const renderEditor = async (name) => {
   const container = document.querySelector('.filters-container');
 
@@ -30,11 +33,13 @@ const renderEditor = async (name) => {
   return html;
 };
 
+// default
 let value = 'filters';
 renderEditor(value).then(() => {
   loadScript(value);
 });
 
+// driver
 editSelector.addEventListener('change', async () => {
   value = editSelector.value.toLowerCase();
 

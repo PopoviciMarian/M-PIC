@@ -1,6 +1,6 @@
 const dialog = `
 
-<section class="dialog">
+<section class="dialog" id="dialog">
 <div class="editor-actions">
   <div class="choose-action editor-action">
     <div >Choose from gallery</div>
