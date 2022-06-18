@@ -71,7 +71,8 @@ import { render, clear } from '../../utils/utils.js';
   };
 
   // driver btns
-  const templateBtns = document.querySelectorAll('.template');
+
+  const templateBtns = document.querySelectorAll('.template-btn');
   templateBtns.forEach((btn) => {
     btn.addEventListener('click', async () => {
       templateBtns.forEach((tBtn) => {
@@ -88,4 +89,39 @@ import { render, clear } from '../../utils/utils.js';
   // default
   await importTemplate('template1');
   await selectImages();
+
+  // discard
+  const discardBtn = document.querySelector('.discard');
+  discardBtn.addEventListener('click', async () => {
+    await importTemplate('template1');
+    document
+      .querySelector('.template-btn')
+      .dispatchEvent(new MouseEvent('click'));
+  });
+
+  //save
+  const saveBtn = document.querySelector('.save');
+
+  saveBtn.addEventListener('click', async () => {
+    const canvas = await html2canvas(document.querySelector('.image-to-edit'));
+
+    const imageSrc = canvas.toDataURL('image/png');
+
+    const image = await fetch(imageSrc);
+    const imageBlog = await image.blob();
+    const imageURL = URL.createObjectURL(imageBlog);
+
+    const imageFormData = new FormData(imageSrc);
+
+    imageFormData.append('userfile', JSON.stringify(imageBlog));
+    console.log(imageFormData);
+  });
+
+  //   html2canvas($("#testdiv"), {
+  //     onrendered: function(canvas) {
+  //         // canvas is the final rendered <canvas> element
+  //         var myImage = canvas.toDataURL("image/png");
+  //         window.open(myImage);
+  //     }
+  // });
 })();

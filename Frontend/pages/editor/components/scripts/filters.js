@@ -173,4 +173,28 @@ import { render, clear } from '../../utils/utils.js';
       }`;
     });
   });
+
+  //save
+  const saveBtn = document.querySelector('.save');
+
+  saveBtn.addEventListener('click', async () => {
+    const canvas = await html2canvas(document.querySelector('.image-to-edit'));
+
+    const imageSrc = canvas.toDataURL('image/png');
+    const image = await fetch(imageSrc);
+    const imageBlob = await image.blob();
+    const imageURL = URL.createObjectURL(imageBlob);
+
+    const img = document.createElement('img');
+    img.setAttribute('src', imageURL);
+    document.body.append(img);
+
+    // const imageBlob = await image.blob();
+    // const imageURL = URL.createObjectURL(imageBlob);
+
+    // const imageFormData = new FormData(canvas);
+
+    // // imageFormData.append('userfile', JSON.stringify(imageBlog));
+    // console.log(imageFormData);
+  });
 })();
