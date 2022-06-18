@@ -1,69 +1,74 @@
-(() => {
-  const imgContainer = document.querySelector('.image-to-edit');
-  imgContainer.innerHTML = '';
+(async () => {
+  const authModule = await import('../../../../utils/isAuth.js');
+  const isAuth = authModule.default;
 
+  const utilsModule = await import('../../utils/utils.js');
+  const { render, clear, hasGalleryAccess } = utilsModule.default;
+
+  // clear previous
+  const container = clear();
+
+  // render placeholder image
   const img = document.createElement('img');
   img.setAttribute('src', '../../resources/placeholder.png');
-  imgContainer.append(img);
+  container.append(img);
 
-  img.addEventListener('click', () => {
-    import('../dialog/html_dialog.js').then((html) => {
-      const parser = new DOMParser();
-      const content = parser
-        .parseFromString(html.default, 'text/html')
-        .querySelector('.dialog');
-      const body = document.querySelector('body');
-      body.append(content);
+  //upload new image
+  const uploadNewImage = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-      const uploadInput = document.querySelector('.editor-action-input');
-      const chooseInput = document.querySelector('.choose-action');
+    const reader = new FileReader();
 
-      uploadInput.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
+    reader.addEventListener('load', () => {
+      let uploadedImage = reader.result;
+      let img = document.querySelector('.image-to-edit img');
+      img.setAttribute('src', uploadedImage);
+    });
 
-        const reader = new FileReader();
+    reader.readAsDataURL(file);
 
-        reader.addEventListener('load', () => {
-          let uploadedImage = reader.result;
-          let img = document.querySelector('.image-to-edit img');
-          img.setAttribute('src', uploadedImage);
-        });
+    document.querySelector('.dialog').remove();
+  };
 
-        reader.readAsDataURL(file);
+  //choose image from gallery
+  const chooseImageFromGallery = async () => {
+    const gallery = await render('gallery');
+    document.querySelector('body').append(gallery);
 
+    if (!hasGalleryAccess()) {
+      return;
+    }
+
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    galleryItems.forEach((item) => {
+      item.addEventListener('click', (e) => {
+        let img = document.querySelector('.image-to-edit img');
+        img.setAttribute('src', e.target.src);
+
+        document.querySelector('.gallery-selector').remove();
         document.querySelector('.dialog').remove();
       });
-
-      chooseInput.addEventListener('click', () => {
-        return import('../html/html_gallery.js')
-          .then((html) => {
-            const parser = new DOMParser();
-            const content = parser
-              .parseFromString(html.default, 'text/html')
-              .querySelector('.gallery-selector');
-            const body = document.querySelector('body');
-            body.append(content);
-          })
-          .then(() => {
-            const galleryItems = document.querySelectorAll('.gallery-item');
-            galleryItems.forEach((item) => {
-              item.addEventListener('click', (e) => {
-                let img = document.querySelector('.image-to-edit img');
-                img.setAttribute('src', e.target.src);
-                document.querySelector('.gallery-selector').remove();
-                document.querySelector('.dialog').remove();
-              });
-            });
-          });
-      });
     });
+  };
+
+  // image click event
+  img.addEventListener('click', async () => {
+    const dialog = await render('dialog');
+    document.querySelector('body').append(dialog);
+
+    const uploadInput = document.querySelector('.editor-action-input');
+    const chooseInput = document.querySelector('.choose-action');
+
+    uploadInput.addEventListener('change', uploadNewImage);
+    chooseInput.addEventListener('click', chooseImageFromGallery);
   });
 
   const discardBtn = document.querySelector('.discard');
   const rangeInputs = document.querySelectorAll('input[type="range"]');
   const imageToEdit = document.querySelector('.image-to-edit img');
 
+  // filters actions
   function handleInputChange(e) {
     const filter = e.target.id;
     let target;
@@ -176,5 +181,47 @@
         lastCh === '%' ? '%' : lastCh === '°' ? '°' : 'px'
       }`;
     });
+  });
+
+  //save
+  const saveBtn = document.querySelector('.save');
+
+  saveBtn.addEventListener('click', async () => {
+    const token = JSON.parse(localStorage.getItem('token'));
+
+    const img = document.querySelector('.image-to-edit img');
+
+    const canvas = document.createElement('canvas');
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+
+    const context = canvas.getContext('2d');
+    context.filter = getComputedStyle(img).filter;
+
+    // img.setAttribute('crossOrigin', 'anonymous');
+
+    context.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+    const imageURL = canvas.toDataURL();
+    const imageData = await fetch(imageURL);
+    const imageBlob = await imageData.blob();
+
+    const formData = new FormData();
+    formData.append('image', imageBlob, 'image.png');
+
+    const res = await fetch(
+      'http://178.79.141.216:8803/api/image/upload?type=public',
+      {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + token
+        },
+        body: formData
+      }
+    );
+
+    const data = await res.json();
+
+    console.log(data);
   });
 })();

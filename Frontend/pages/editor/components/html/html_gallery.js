@@ -1,5 +1,5 @@
 const gallery = `
-<section class="gallery-selector">
+<section class="gallery-selector" id="gallery">
 <div class="gallery-grid">
   <div class="gallery-item">
     <img src="../../resources/user.png" alt="" />

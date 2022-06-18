@@ -8,6 +8,21 @@
   text-transform: uppercase;
   font-family: 'Gill Sans MT', sans-serif;
 }
+.not-auth {
+  height: 20rem;
+  text-align: center;
+  margin: 5rem;
+  font-size: 1.5rem;
+}
+.not-auth a {
+  background-color: var(--yellow);
+  padding: 0.5rem;
+  border-bottom: 0.25rem solid var(--black);
+}
+
+.not-auth a:hover {
+  filter: brightness(80%);
+}
 
 .gallery-wrapper {
   display: flex;

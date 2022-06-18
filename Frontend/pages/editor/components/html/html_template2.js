@@ -1,5 +1,5 @@
 const template = `
-<div class="template2 template" id="template">
+<div class="template2 template" id="template2">
 <div class="template-row">
 
     <div class="template-image">
