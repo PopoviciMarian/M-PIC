@@ -1,5 +1,22 @@
-import { render, clear } from '../../utils/utils.js';
 (() => {
+  console.log('filters script');
+
+  const render = async (name) => {
+    const html = await import(`../html/html_${name}.js`);
+    const parser = new DOMParser();
+    const content = parser
+      .parseFromString(html.default, 'text/html')
+      .querySelector('#' + name);
+
+    return content;
+  };
+
+  const clear = () => {
+    const imgContainer = document.querySelector('.image-to-edit');
+    imgContainer.innerHTML = '';
+    return imgContainer;
+  };
+
   // clear previous
   const container = clear();
 

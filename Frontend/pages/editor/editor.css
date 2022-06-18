@@ -12,6 +12,37 @@
 .editor-main {
   display: flex;
 }
+.not-auth {
+  width: 100%;
+  text-align: center;
+  margin: 2rem;
+  font-size: 1.5rem;
+}
+.not-auth a {
+  background-color: var(--yellow);
+  padding: 0.5rem;
+  border-bottom: 0.25rem solid var(--black);
+}
+
+.not-auth a:hover {
+  filter: brightness(80%);
+}
+
+.close-btn {
+  position: absolute;
+  cursor: pointer;
+  top: 10px;
+  right: 10px;
+  border-radius: 20px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: red;
+  border-width: 0;
+  color: white;
+}
 
 .dialog {
   position: fixed;
@@ -401,6 +432,8 @@
 }
 
 .gallery-grid {
+  position: relative;
+
   max-width: 60rem;
   padding: 1rem;
   margin: 2rem;

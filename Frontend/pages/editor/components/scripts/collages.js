@@ -1,12 +1,49 @@
-import { render, clear } from '../../utils/utils.js';
+// import { render, clear } from '../../utils/utils.js';
+// import isAuth from '../../../../utils/isAuth.js';
 
 (async () => {
+  console.log('collages script');
+
+  const render = async (name) => {
+    const html = await import(`../html/html_${name}.js`);
+    const parser = new DOMParser();
+    const content = parser
+      .parseFromString(html.default, 'text/html')
+      .querySelector('#' + name);
+
+    return content;
+  };
+
+  const clear = () => {
+    const imgContainer = document.querySelector('.image-to-edit');
+    imgContainer.innerHTML = '';
+    return imgContainer;
+  };
   // import collage template
   const importTemplate = async (name) => {
     const container = clear();
     const template = await render(name);
     return container.append(template);
   };
+
+  // const userIsAuth = () => {
+  //   if (!isAuth()) {
+  //     const container = document.querySelector('.gallery-grid');
+  //     container.style.display = 'flex';
+
+  //     container.innerHTML = `<h3 class="not-auth"><a href="../../pages/auth/login.html">Login</a> to select from gallery
+  //     <button class="close-btn">X</button></h3>`;
+
+  //     const closeBtn = document.querySelector('.close-btn');
+
+  //     closeBtn.addEventListener('click', () => {
+  //       document.querySelector('#gallery').remove();
+  //     });
+
+  //     return false;
+  //   }
+  //   return true;
+  // };
 
   // upload new image
   const uploadNewImage = (e, event) => {
@@ -31,6 +68,10 @@ import { render, clear } from '../../utils/utils.js';
   const chooseImageFromGallery = async (event) => {
     const gallery = await render('gallery');
     document.querySelector('body').append(gallery);
+
+    // if (!userIsAuth()) {
+    //   return;
+    // }
 
     const galleryItems = document.querySelectorAll('.gallery-item');
 

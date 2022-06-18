@@ -11,7 +11,6 @@ const loadScript = (name) => {
   const script = document.createElement('script');
   script.setAttribute('src', `./components/scripts/${name}.js`);
   script.setAttribute('id', 'script');
-  script.setAttribute('type', 'module');
 
   head.appendChild(script);
 };
@@ -42,7 +41,6 @@ renderEditor(value).then(() => {
 // driver
 editSelector.addEventListener('change', async () => {
   value = editSelector.value.toLowerCase();
-
   await renderEditor(value);
   loadScript(value);
 });
