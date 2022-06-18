@@ -1,21 +1,9 @@
-(() => {
-  console.log('filters script');
+(async () => {
+  const authModule = await import('../../../../utils/isAuth.js');
+  const isAuth = authModule.default;
 
-  const render = async (name) => {
-    const html = await import(`../html/html_${name}.js`);
-    const parser = new DOMParser();
-    const content = parser
-      .parseFromString(html.default, 'text/html')
-      .querySelector('#' + name);
-
-    return content;
-  };
-
-  const clear = () => {
-    const imgContainer = document.querySelector('.image-to-edit');
-    imgContainer.innerHTML = '';
-    return imgContainer;
-  };
+  const utilsModule = await import('../../utils/utils.js');
+  const { render, clear, hasGalleryAccess } = utilsModule.default;
 
   // clear previous
   const container = clear();
@@ -47,6 +35,10 @@
   const chooseImageFromGallery = async () => {
     const gallery = await render('gallery');
     document.querySelector('body').append(gallery);
+
+    if (!hasGalleryAccess()) {
+      return;
+    }
 
     const galleryItems = document.querySelectorAll('.gallery-item');
     galleryItems.forEach((item) => {
