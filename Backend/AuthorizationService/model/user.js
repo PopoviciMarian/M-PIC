@@ -64,7 +64,16 @@ class UserModel{
 
     async deleteUser(req){
         try {
-            let token = req['rawHeaders'][1].slice(7)
+            let token = '';
+            for(var header of req['rawHeaders']){
+                if(header.startsWith("Bearer ")){
+                    token = header.slice(7)
+                    break
+                }
+            }
+            if(token === ''){
+                return {code: 400, message : "Access token is missing!"}
+            }
             var decoded = jwt.verify(token, process.env.JWT_PK);
             const id = decoded['data']['id'];
             var res = await pool.query(`DELETE FROM users WHERE id = $1::int`, [id])
@@ -85,7 +94,16 @@ class UserModel{
 
     async updateUser(req, body){
         try{
-            let token = req['rawHeaders'][1].slice(7)
+            let token = '';
+            for(var header of req['rawHeaders']){
+                if(header.startsWith("Bearer ")){
+                    token = header.slice(7)
+                    break
+                }
+            }
+            if(token === ''){
+                return {code: 400, message : "Access token is missing!"}
+            }
             var decoded = jwt.verify(token, process.env.JWT_PK);
             const id = decoded['data']['id'];
             if(body["id"] !== undefined && body['id'] !== id){
@@ -130,7 +148,16 @@ class UserModel{
     }
     async readUser(req){
         try{
-            let token = req['rawHeaders'][1].slice(7)
+            let token = '';
+            for(var header of req['rawHeaders']){
+                if(header.startsWith("Bearer ")){
+                    token = header.slice(7)
+                    break
+                }
+            }
+            if(token === ''){
+                return {code: 400, message : "Access token is missing!"}
+            }
             var decoded = jwt.verify(token, process.env.JWT_PK);
             const id = decoded['data']['id'];
             var user = await pool.query(`SELECT * FROM users WHERE id = $1::int`, [id])
