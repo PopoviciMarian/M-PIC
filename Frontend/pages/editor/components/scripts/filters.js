@@ -3,7 +3,7 @@
   const isAuth = authModule.default;
 
   const utilsModule = await import('../../utils/utils.js');
-  const { render, clear, hasGalleryAccess } = utilsModule.default;
+  const { render, clear, hasGalleryAccess, saveImage } = utilsModule.default;
 
   // clear previous
   const container = clear();
@@ -181,47 +181,5 @@
         lastCh === '%' ? '%' : lastCh === '°' ? '°' : 'px'
       }`;
     });
-  });
-
-  //save
-  const saveBtn = document.querySelector('.save');
-
-  saveBtn.addEventListener('click', async () => {
-    const token = JSON.parse(localStorage.getItem('token'));
-
-    const img = document.querySelector('.image-to-edit img');
-
-    const canvas = document.createElement('canvas');
-    canvas.width = img.naturalWidth;
-    canvas.height = img.naturalHeight;
-
-    const context = canvas.getContext('2d');
-    context.filter = getComputedStyle(img).filter;
-
-    // img.setAttribute('crossOrigin', 'anonymous');
-
-    context.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-    const imageURL = canvas.toDataURL();
-    const imageData = await fetch(imageURL);
-    const imageBlob = await imageData.blob();
-
-    const formData = new FormData();
-    formData.append('image', imageBlob, 'image.png');
-
-    const res = await fetch(
-      'http://178.79.141.216:8803/api/image/upload?type=public',
-      {
-        method: 'POST',
-        headers: {
-          Authorization: 'Bearer ' + token
-        },
-        body: formData
-      }
-    );
-
-    const data = await res.json();
-
-    console.log(data);
   });
 })();

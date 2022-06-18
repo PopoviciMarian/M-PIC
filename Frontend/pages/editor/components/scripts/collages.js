@@ -3,7 +3,7 @@
   const isAuth = authModule.default;
 
   const utilsModule = await import('../../utils/utils.js');
-  const { render, clear, hasGalleryAccess } = utilsModule.default;
+  const { render, clear, hasGalleryAccess, saveImage } = utilsModule.default;
 
   // import collage template
   const importTemplate = async (name) => {
@@ -97,43 +97,4 @@
   // default
   await importTemplate('template1');
   await selectImages();
-
-  // // discard
-  // const discardBtn = document.querySelector('.discard');
-  // discardBtn.addEventListener('click', async () => {
-  //   await importTemplate('template1');
-  //   document
-  //     .querySelector('.template-btn')
-  //     .dispatchEvent(new MouseEvent('click'));
-  // });
-
-  //save
-  const saveBtn = document.querySelector('.save');
-
-  saveBtn.addEventListener('click', async () => {
-    const token = JSON.parse(localStorage.getItem('token'));
-    const canvas = await html2canvas(document.querySelector('.image-to-edit'));
-
-    const imageURL = canvas.toDataURL();
-    const imageData = await fetch(imageURL);
-    const imageBlob = await imageData.blob();
-
-    const formData = new FormData();
-    formData.append('image', imageBlob, 'image.png');
-
-    const res = await fetch(
-      'http://178.79.141.216:8803/api/image/upload?type=public',
-      {
-        method: 'POST',
-        headers: {
-          Authorization: 'Bearer ' + token
-        },
-        body: formData
-      }
-    );
-
-    const data = await res.json();
-
-    console.log(data);
-  });
 })();

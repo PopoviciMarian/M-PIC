@@ -1,3 +1,5 @@
+import * as utils from './utils/utils.js';
+
 const editSelector = document.querySelector('#editor-select');
 
 // dynamic script load
@@ -44,3 +46,11 @@ editSelector.addEventListener('change', async () => {
   await renderEditor(value);
   loadScript(value);
 });
+
+const saveBtn = document.querySelector('.save');
+saveBtn.addEventListener('click', async () => utils.default.saveImage(value));
+
+const discardBtn = document.querySelector('.discard');
+discardBtn.addEventListener('click', async () =>
+  utils.default.discardImages(value)
+);
