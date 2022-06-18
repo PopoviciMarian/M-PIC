@@ -1,13 +1,12 @@
-import render from '../../utils/renderer.js';
+import { render, clear } from '../../utils/utils.js';
 (() => {
   // clear previous
-  const imgContainer = document.querySelector('.image-to-edit');
-  imgContainer.innerHTML = '';
+  const container = clear();
 
   // render placeholder image
   const img = document.createElement('img');
   img.setAttribute('src', '../../resources/placeholder.png');
-  imgContainer.append(img);
+  container.append(img);
 
   //upload new image
   const uploadNewImage = (e) => {
@@ -48,8 +47,6 @@ import render from '../../utils/renderer.js';
   img.addEventListener('click', async () => {
     const dialog = await render('dialog');
     document.querySelector('body').append(dialog);
-
-    console.log(dialog);
 
     const uploadInput = document.querySelector('.editor-action-input');
     const chooseInput = document.querySelector('.choose-action');

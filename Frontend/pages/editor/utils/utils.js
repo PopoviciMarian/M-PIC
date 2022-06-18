@@ -5,7 +5,14 @@ const render = async (name) => {
     .parseFromString(html.default, 'text/html')
     .querySelector('#' + name);
 
+  console.log(content);
   return content;
 };
 
-export default render;
+const clear = () => {
+  const imgContainer = document.querySelector('.image-to-edit');
+  imgContainer.innerHTML = '';
+  return imgContainer;
+};
+
+export { render, clear };

@@ -1,5 +1,5 @@
 const template = `
-<div class="template1 template" id="template">
+<div class="template1 template" id="template1">
 <div class="template-row">
   <div class="template-image">
     <img id="img1" src="../../resources/placeholder.png" alt="" />

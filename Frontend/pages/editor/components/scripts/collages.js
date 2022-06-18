@@ -1,92 +1,91 @@
-(() => {
-  const container = document.querySelector('.image-to-edit');
-  container.innerHTML = '';
+import { render, clear } from '../../utils/utils.js';
 
-  const importTemplate = async (id) => {
-    container.querySelector('#template')?.remove();
-
-    const done = await import(`../html/templates/${id}.js`).then((html) => {
-      const parser = new DOMParser();
-      const content = parser
-        .parseFromString(html.default, 'text/html')
-        .querySelector('#template');
-      container.append(content);
-    });
-
-    return done;
+(async () => {
+  // import collage template
+  const importTemplate = async (name) => {
+    const container = clear();
+    const template = await render(name);
+    return container.append(template);
   };
 
-  const selectImages = () => {
-    document.querySelectorAll('.template-image img').forEach((img) => {
-      img.addEventListener('click', (event) => {
-        const body = document.querySelector('body');
+  // upload new image
+  const uploadNewImage = (e, event) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-        import('../html/html_dialog.js').then((html) => {
-          const parser = new DOMParser();
-          const content = parser
-            .parseFromString(html.default, 'text/html')
-            .querySelector('.dialog');
-          body.append(content);
+    const reader = new FileReader();
 
-          const uploadInput = document.querySelector('.editor-action-input');
-          const chooseInput = document.querySelector('.choose-action');
+    reader.addEventListener('load', () => {
+      let uploadedImage = reader.result;
+      let img = document.querySelector('#' + event.target.id);
 
-          uploadInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
+      img.setAttribute('src', uploadedImage);
+    });
 
-            const reader = new FileReader();
+    reader.readAsDataURL(file);
 
-            reader.addEventListener('load', () => {
-              let uploadedImage = reader.result;
-              let img = document.querySelector('#' + event.target.id);
+    document.querySelector('.dialog').remove();
+  };
 
-              img.setAttribute('src', uploadedImage);
-            });
+  // choose image from gallery
+  const chooseImageFromGallery = async (event) => {
+    const gallery = await render('gallery');
+    document.querySelector('body').append(gallery);
 
-            reader.readAsDataURL(file);
+    const galleryItems = document.querySelectorAll('.gallery-item');
 
-            document.querySelector('.dialog').remove();
-          });
+    galleryItems.forEach((item) => {
+      item.addEventListener('click', (e) => {
+        let img = document.querySelector('#' + event.target.id);
+        img.setAttribute('src', e.target.src);
 
-          chooseInput.addEventListener('click', () => {
-            import('../html/html_gallery.js').then((html) => {
-              const parser = new DOMParser();
-              const content = parser
-                .parseFromString(html.default, 'text/html')
-                .querySelector('.gallery-selector');
-              const body = document.querySelector('body');
-              body.append(content);
-              const galleryItems = document.querySelectorAll('.gallery-item');
-              galleryItems.forEach((item) => {
-                item.addEventListener('click', (e) => {
-                  let img = document.querySelector('#' + event.target.id);
-                  img.setAttribute('src', e.target.src);
-                  document.querySelector('.gallery-selector').remove();
-                  document.querySelector('.dialog').remove();
-                });
-              });
-            });
-          });
-        });
+        document.querySelector('.gallery-selector').remove();
+        document.querySelector('.dialog').remove();
       });
     });
   };
 
+  // images selector
+  const selectImages = async () => {
+    const templateImagePlaceholders = document.querySelectorAll(
+      '.template-image img'
+    );
+
+    templateImagePlaceholders.forEach(async (template) => {
+      template.addEventListener('click', async (event) => {
+        const dialog = await render('dialog');
+        document.querySelector('body').append(dialog);
+
+        const uploadInput = document.querySelector('.editor-action-input');
+        const chooseInput = document.querySelector('.choose-action');
+
+        uploadInput.addEventListener('change', async (e) => {
+          uploadNewImage(e, event);
+        });
+
+        chooseInput.addEventListener('click', async () =>
+          chooseImageFromGallery(event)
+        );
+      });
+    });
+  };
+
+  // driver btns
   const templateBtns = document.querySelectorAll('.template');
   templateBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', async () => {
       templateBtns.forEach((tBtn) => {
         tBtn.classList.remove('active');
       });
 
       btn.classList.add('active');
 
-      importTemplate(btn.id).then(() => selectImages());
+      await importTemplate(btn.id);
+      selectImages();
     });
   });
 
-  importTemplate('template1').then(() => {
-    selectImages();
-  });
+  // default
+  await importTemplate('template1');
+  await selectImages();
 })();
