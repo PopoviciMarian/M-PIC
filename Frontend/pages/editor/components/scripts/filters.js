@@ -183,27 +183,33 @@
     });
   });
 
-  // //save
-  // const saveBtn = document.querySelector('.save');
+  //save
+  const saveBtn = document.querySelector('.save');
 
-  // saveBtn.addEventListener('click', async () => {
-  //   const canvas = await html2canvas(document.querySelector('.image-to-edit'));
+  saveBtn.addEventListener('click', async () => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const canvas = await html2canvas(document.querySelector('.image-to-edit'));
 
-  //   const imageSrc = canvas.toDataURL('image/png');
-  //   const image = await fetch(imageSrc);
-  //   const imageBlob = await image.blob();
-  //   const imageURL = URL.createObjectURL(imageBlob);
+    const imageURL = canvas.toDataURL();
+    const imageData = await fetch(imageURL);
+    const imageBlob = await imageData.blob();
 
-  //   const img = document.createElement('img');
-  //   img.setAttribute('src', imageURL);
-  //   document.body.append(img);
+    const formData = new FormData();
+    formData.append('image', imageBlob, 'image.png');
 
-  //   // const imageBlob = await image.blob();
-  //   // const imageURL = URL.createObjectURL(imageBlob);
+    const res = await fetch(
+      'http://178.79.141.216:8803/api/image/upload?type=public',
+      {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + token
+        },
+        body: formData
+      }
+    );
 
-  //   // const imageFormData = new FormData(canvas);
+    const data = await res.json();
 
-  //   // // imageFormData.append('userfile', JSON.stringify(imageBlog));
-  //   // console.log(imageFormData);
-  // });
+    console.log(data);
+  });
 })();
