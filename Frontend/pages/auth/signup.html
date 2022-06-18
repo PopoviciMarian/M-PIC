@@ -10,6 +10,8 @@
     <script src="../../components/navbar/navbar.js" defer></script>
 
     <link rel="stylesheet" href="./auth.css" />
+
+    <script type="module" src="./signup.js" defer></script>
   </head>
   <body>
     <nav class="navbar">
@@ -53,8 +55,17 @@
 
     <section class="auth-section">
       <div class="auth-wrapper">
-        <form class="auth-form">
+        <form class="auth-form" id="signup-form">
           <h2>Signup</h2>
+          <div class="form-item">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              placeholder="Enter your name"
+              name="name"
+              required
+            />
+          </div>
           <div class="form-item">
             <label for="email">Email</label>
             <input
@@ -76,27 +87,9 @@
           <div class="form-item">
             <label for="confirm-password">Confirm password</label>
             <input
-              type="confirm-password"
+              type="password"
               placeholder="Confirm password"
               name="confirm-password"
-              required
-            />
-          </div>
-          <div class="form-item">
-            <label for="reddit-url">Reddit URL</label>
-            <input
-              type="reddit-url"
-              placeholder="Enter reddit profile url"
-              name="reddit-url"
-              required
-            />
-          </div>
-          <div class="form-item">
-            <label for="twitter-url">Twitter URL</label>
-            <input
-              type="twitter-url"
-              placeholder="Enter twitter profile url"
-              name="twitter-url"
               required
             />
           </div>

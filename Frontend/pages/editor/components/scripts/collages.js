@@ -99,29 +99,29 @@ import { render, clear } from '../../utils/utils.js';
       .dispatchEvent(new MouseEvent('click'));
   });
 
-  //save
-  const saveBtn = document.querySelector('.save');
+  // //save
+  // const saveBtn = document.querySelector('.save');
 
-  saveBtn.addEventListener('click', async () => {
-    const canvas = await html2canvas(document.querySelector('.image-to-edit'));
+  // saveBtn.addEventListener('click', async () => {
+  //   const canvas = await html2canvas(document.querySelector('.image-to-edit'));
 
-    const imageSrc = canvas.toDataURL('image/png');
+  //   const imageSrc = canvas.toDataURL('image/png');
 
-    const image = await fetch(imageSrc);
-    const imageBlog = await image.blob();
-    const imageURL = URL.createObjectURL(imageBlog);
+  //   const image = await fetch(imageSrc);
+  //   const imageBlog = await image.blob();
+  //   const imageURL = URL.createObjectURL(imageBlog);
 
-    const imageFormData = new FormData(imageSrc);
+  //   const imageFormData = new FormData(imageSrc);
 
-    imageFormData.append('userfile', JSON.stringify(imageBlog));
-    console.log(imageFormData);
-  });
-
-  //   html2canvas($("#testdiv"), {
-  //     onrendered: function(canvas) {
-  //         // canvas is the final rendered <canvas> element
-  //         var myImage = canvas.toDataURL("image/png");
-  //         window.open(myImage);
-  //     }
+  //   imageFormData.append('userfile', JSON.stringify(imageBlog));
+  //   console.log(imageFormData);
   // });
+
+  // //   html2canvas($("#testdiv"), {
+  // //     onrendered: function(canvas) {
+  // //         // canvas is the final rendered <canvas> element
+  // //         var myImage = canvas.toDataURL("image/png");
+  // //         window.open(myImage);
+  // //     }
+  // // });
 })();
