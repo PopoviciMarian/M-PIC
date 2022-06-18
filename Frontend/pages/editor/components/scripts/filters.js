@@ -188,7 +188,19 @@
 
   saveBtn.addEventListener('click', async () => {
     const token = JSON.parse(localStorage.getItem('token'));
-    const canvas = await html2canvas(document.querySelector('.image-to-edit'));
+
+    const img = document.querySelector('.image-to-edit img');
+
+    const canvas = document.createElement('canvas');
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+
+    const context = canvas.getContext('2d');
+    context.filter = getComputedStyle(img).filter;
+
+    // img.setAttribute('crossOrigin', 'anonymous');
+
+    context.drawImage(img, 0, 0, canvas.width, canvas.height);
 
     const imageURL = canvas.toDataURL();
     const imageData = await fetch(imageURL);
