@@ -26,7 +26,16 @@ class ImageModel{
 
     async saveImage(req, res){
         try{
-            let token = req['rawHeaders'][1].slice(7)
+            let token = '';
+            for(var header of req['rawHeaders']){
+                if(header.startsWith("Bearer ")){
+                    token = header.slice(7)
+                    break
+                }
+            }
+            if(token === ''){
+                return {code: 400, message : "Access token is missing!"}
+            }
             var options = {
                 'method': 'GET',
                 'url': process.env.VALIDATE_TOKEN_URL, 
@@ -76,7 +85,16 @@ class ImageModel{
     async getPrivateImages(req){
         try{
             
-            let token = req['rawHeaders'][1].slice(7)
+            let token = '';
+            for(var header of req['rawHeaders']){
+                if(header.startsWith("Bearer ")){
+                    token = header.slice(7)
+                    break
+                }
+            }
+            if(token === ''){
+                return {code: 400, message : "Access token is missing!"}
+            }
             var options = {
                 'method': 'GET',
                 'url': process.env.VALIDATE_TOKEN_URL, 
@@ -105,7 +123,16 @@ class ImageModel{
 
     async deleteImage(req){
         try{
-            let token = req['rawHeaders'][1].slice(7)
+            let token = '';
+            for(var header of req['rawHeaders']){
+                if(header.startsWith("Bearer ")){
+                    token = header.slice(7)
+                    break
+                }
+            }
+            if(token === ''){
+                return {code: 400, message : "Access token is missing!"}
+            }
             var options = {
                 'method': 'GET',
                 'url': process.env.VALIDATE_TOKEN_URL, 
