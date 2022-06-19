@@ -64,7 +64,6 @@
     chooseInput.addEventListener('click', chooseImageFromGallery);
   });
 
-  const discardBtn = document.querySelector('.discard');
   const rangeInputs = document.querySelectorAll('input[type="range"]');
   const imageToEdit = document.querySelector('.image-to-edit img');
 
@@ -165,21 +164,5 @@
 
   rangeInputs.forEach((input) => {
     input.addEventListener('input', handleInputChange);
-  });
-
-  discardBtn.addEventListener('click', () => {
-    imageToEdit.style.filter = '';
-
-    rangeInputs.forEach((i) => {
-      i.style.backgroundSize = '50% 100%';
-
-      let resetValue = (i.value = i.max / 2);
-      let oldText = i.nextElementSibling.textContent;
-      let lastCh = oldText[oldText.length - 1];
-
-      i.nextElementSibling.innerHTML = `${resetValue}${
-        lastCh === '%' ? '%' : lastCh === '°' ? '°' : 'px'
-      }`;
-    });
   });
 })();
