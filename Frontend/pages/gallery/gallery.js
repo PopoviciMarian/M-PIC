@@ -51,7 +51,7 @@ import { renderPrivateItem } from './components/html/html_private_item.js';
   const data = await res.json();
   items.push(...data.message);
 
-  items.forEach((item) => {
+  items.reverse().forEach((item) => {
     const item_html = renderPrivateItem(
       item.img_url,
       item.likes,
