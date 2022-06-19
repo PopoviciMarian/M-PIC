@@ -22,6 +22,11 @@ class ImageController {
         imageView.deleteImageView(res, modelRes);
         res.end();
     }
+    async getImageById(req, res, body){
+        let modelRes = await imageModel.getImageById(req);
+        imageView.getImageById(res, modelRes);
+        res.end();
+    }
 }
 
 

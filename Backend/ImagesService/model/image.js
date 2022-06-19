@@ -167,6 +167,15 @@ class ImageModel{
             return {code : 500, message : error.message}
         }
     }
+
+    async getImageById(req){
+        let image_id = new URLSearchParams(req.url).get('/api/images/getbyid?id');
+        const res = await pool.query("SELECT * FROM images WHERE image_id = $1", [image_id])
+        if(res.rows.length === 0){
+            return {code : 400, message: `Could not find image owner with id ${image_id}`}
+        }
+        return {code : 200, message: res.rows}
+    }
 }
 
 let model = new ImageModel();
