@@ -81,3 +81,22 @@
 .form-item:last-of-type {
   margin-bottom: 0;
 }
+.centerElement {
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+}
+.unsplashLogin {
+    color: #ffffff;
+    background-color: #121721;
+    font-size: 18px;
+    border-radius: 6px;
+    padding: 10px 10px;
+    width: 212px;
+    height: 40px;
+    cursor: pointer;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+}

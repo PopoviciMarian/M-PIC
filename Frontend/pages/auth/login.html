@@ -15,6 +15,8 @@
     <script type="module" src="./login.js" defer></script>
   </head>
   <body>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v14.0" nonce="M6dzajw4"></script>
     <nav class="navbar">
       <div class="navbar-wrapper">
         <div class="menu">
@@ -83,7 +85,11 @@
             Don't have an account ? <a href="./signup.html">Signup</a>
           </div>
         </form>
+        
       </div>
+      <div class="centerElement fb-login-button" data-width="200" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
+      <div class="centerElement"><button class="unsplashLogin" name="unsplashLogin">Log in with Unsplash</button></div>
     </section>
+    
   </body>
 </html>
