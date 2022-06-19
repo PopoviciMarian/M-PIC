@@ -12,6 +12,7 @@
   // render image
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id') || null;
+
   const img = document.createElement('img');
   if (!id) {
     img.setAttribute('src', '../../resources/placeholder.png');

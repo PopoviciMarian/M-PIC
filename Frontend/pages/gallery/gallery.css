@@ -1,5 +1,81 @@
+.gallery-search {
+  display: flex;
+  width: 95%;
+  max-width: 86rem;
+  margin-bottom: 2rem;
+  box-shadow: 5px 5px 10px #aaaaaa;
+  padding: 1rem;
+  justify-content: space-between;
+}
+
+.gallery-search * {
+  font-size: 1.3rem;
+}
+
+.select-wrapper {
+  display: flex;
+}
+
+.search-box {
+  /* border: 1px solid red; */
+  display: flex;
+}
+.search-box button {
+  border: none;
+  background-color: var(--yellow);
+  border: 1px solid var(--black);
+  /* border-left: none; */
+  display: flex;
+  padding: 0.5rem;
+  margin-left: 0.25rem;
+  cursor: pointer;
+}
+.search-box input {
+  outline: none;
+  border: none;
+
+  background-color: aliceblue;
+  border: 1px solid var(--black);
+  /* border-right: none; */
+  padding: 0.15rem;
+}
+
+.search-box input:focus {
+  filter: brightness(95%);
+}
+
+.select-privacy,
+.select-social {
+  display: flex;
+  /* flex-direction: column; */
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.select-privacy label,
+.select-social label {
+  /* align-self: center; */
+  padding: 0.5rem;
+}
+
+.select-privacy select,
+.select-social select {
+  /* align-self: center; */
+  /* padding: 0.5rem; */
+  outline: none;
+  cursor: pointer;
+}
+
+.select-privacy {
+  margin-right: 0.25rem;
+}
+
 .gallery {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .gallery > h2 {
   margin: 2rem 0;
@@ -40,6 +116,18 @@
   }
   .gallery > h2 {
     margin-bottom: 1.5rem;
+  }
+  .gallery-search {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .select-wrapper {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    transform: translateX(-0.25rem);
   }
 }
 
@@ -269,9 +357,18 @@
   .gallery-item {
     width: 22rem;
   }
+  .gallery-search {
+    width: 22rem;
+  }
+  .gallery-search * {
+    font-size: 1rem;
+  }
 }
 @media only screen and (max-width: 390px) {
   .gallery-item {
     width: 19rem;
+  }
+  .gallery-search {
+    width: 22rem;
   }
 }

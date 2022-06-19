@@ -98,8 +98,10 @@ const saveFilterImage = async (type) => {
   canvas.height = img.naturalHeight;
 
   const context = canvas.getContext('2d');
+
   context.filter = getComputedStyle(img).filter;
 
+  img.setAttribute('crossOrigin', 'Anonymous');
   context.drawImage(img, 0, 0, canvas.width, canvas.height);
 
   const imageURL = canvas.toDataURL();
@@ -114,7 +116,8 @@ const saveFilterImage = async (type) => {
     {
       method: 'POST',
       headers: {
-        Authorization: 'Bearer ' + token
+        Authorization: 'Bearer ' + token,
+        'Access-Control-Allow-Origin': '*'
       },
       body: formData
     }
