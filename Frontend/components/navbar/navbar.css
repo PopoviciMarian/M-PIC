@@ -1,6 +1,9 @@
 .navbar {
   width: 100%;
   background-color: var(--yellow);
+  position: sticky;
+  top: 0;
+  left: 0;
 }
 
 .navbar-wrapper {

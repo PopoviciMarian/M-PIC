@@ -1,0 +1,112 @@
+#profile {
+  max-width: 90rem;
+  margin: 2rem auto;
+  height: 40rem;
+}
+
+.profile-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.welcome {
+  width: fit-content;
+  margin: 2rem auto;
+}
+
+.user-data,
+.user-actions {
+  border: 1px solid var(--black);
+  width: 40%;
+  padding: 2rem;
+  margin: 2rem;
+}
+
+.user-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.logout-btn .data-header {
+  margin-bottom: 1rem;
+}
+
+.data-content {
+  background-color: aliceblue;
+  padding: 1rem;
+  margin: 1rem 0;
+  height: 15rem;
+}
+
+.data-content p {
+  font-size: 1.25rem;
+  padding: 0.5rem;
+}
+
+.data-content p span {
+  font-weight: bold;
+}
+
+.btn {
+  margin-left: auto;
+  margin-right: 0;
+  width: fit-content;
+}
+.btn button {
+  border: none;
+  font-size: 1.4rem;
+  padding: 0.5rem;
+  background-color: var(--yellow);
+  cursor: pointer;
+}
+
+.btn button:hover {
+  filter: brightness(90%);
+}
+
+.form-wrapper {
+  background-color: aliceblue;
+  padding: 1rem;
+  margin: 1rem 0;
+  height: 15rem;
+}
+
+.form-item {
+  margin-bottom: 1rem;
+}
+
+.form-item:last-of-type {
+  margin-bottom: 0;
+}
+
+.form-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-item label {
+  padding-bottom: 0.25rem;
+  font-size: 1.15rem;
+}
+.form-item input {
+  font-size: 1.15rem;
+  padding: 0.15rem;
+}
+
+@media only screen and (max-width: 900px) {
+  .profile-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+  }
+  #profile {
+    height: fit-content;
+  }
+
+  .user-data,
+  .user-actions {
+    width: 90%;
+    margin: 1rem auto;
+  }
+}

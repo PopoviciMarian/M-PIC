@@ -10,13 +10,21 @@
     <link rel="stylesheet" href="../../components/navbar/navbar.css" />
     <script src="../../components/navbar/navbar.js" defer></script>
 
+    <link rel="stylesheet" href="../../components/footer/footer.css" />
+
     <link rel="stylesheet" href="./auth.css" />
 
     <script type="module" src="./login.js" defer></script>
   </head>
   <body>
     <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v14.0" nonce="M6dzajw4"></script>
+    <script
+      async
+      defer
+      crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v14.0"
+      nonce="M6dzajw4"
+    ></script>
     <nav class="navbar">
       <div class="navbar-wrapper">
         <div class="menu">
@@ -37,7 +45,7 @@
             <a href="../../index.html#about">About</a>
           </li>
           <li class="link-item">
-            <a href="../gallery/gallery.html">Gallery</a>
+            <a href="../gallery/gallery.html">Feed</a>
           </li>
           <li class="link-item">
             <a href="../editor/editor.html">Editor</a>
@@ -85,11 +93,44 @@
             Don't have an account ? <a href="./signup.html">Signup</a>
           </div>
         </form>
-        
       </div>
-      <div class="centerElement fb-login-button" data-width="200" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
-      <div class="centerElement"><button class="unsplashLogin" name="unsplashLogin">Log in with Unsplash</button></div>
+      <div
+        class="centerElement fb-login-button"
+        data-width="200"
+        data-size="large"
+        data-button-type="login_with"
+        data-layout="default"
+        data-auto-logout-link="false"
+        data-use-continue-as="false"
+      ></div>
+      <div class="centerElement">
+        <button class="unsplashLogin" name="unsplashLogin">
+          Log in with Unsplash
+        </button>
+      </div>
     </section>
-    
+
+    <footer class="footer">
+      <div class="footer-wrapper">
+        <div class="footer-section">
+          <h3>Authors</h3>
+          <p>Munteanu Catalin</p>
+          <p>Anicai Denis</p>
+          <p>Popovici Marian</p>
+        </div>
+        <div class="footer-section">
+          <h3>Menu</h3>
+          <a href="">Home</a>
+          <a href="">About</a>
+          <a href="">Editor</a>
+          <a href="">Gallery</a>
+        </div>
+        <div class="footer-section">
+          <h3>Repository</h3>
+          <a href="">GIT</a>
+        </div>
+      </div>
+      <div class="copyrights">© Copyrights 2022</div>
+    </footer>
   </body>
 </html>

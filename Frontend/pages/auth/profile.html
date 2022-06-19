@@ -5,8 +5,128 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="../../styles/main.css" />
+    <link rel="stylesheet" href="../../components/navbar/navbar.css" />
+
+    <link rel="stylesheet" href="./profile.css" />
+    <script src="../../components/navbar/navbar.js" defer></script>
+
+    <link rel="stylesheet" href="../../components/footer/footer.css" />
+
+    <script type="module" src="./profile.js" defer></script>
   </head>
   <body>
-    <h1>User profile page</h1>
+    <nav class="navbar">
+      <div class="navbar-wrapper">
+        <div class="menu">
+          <div class="line"></div>
+          <div class="line hide"></div>
+          <div class="line"></div>
+        </div>
+
+        <div class="logo">
+          <a href="index.html">M-PIC</a>
+        </div>
+
+        <ul class="link-list">
+          <li class="link-item">
+            <a href="../../index.html">Home</a>
+          </li>
+          <li class="link-item">
+            <a href="../../index.html#about">About</a>
+          </li>
+          <li class="link-item">
+            <a href="../gallery/gallery.html">Feed</a>
+          </li>
+          <li class="link-item">
+            <a href="../editor/editor.html">Editor</a>
+          </li>
+        </ul>
+
+        <div class="auth active">
+          <a href="../auth/login.html">
+            <img
+              class="user-icon"
+              src="../../resources/user.png"
+              alt="user.jpg"
+            />
+          </a>
+        </div>
+      </div>
+    </nav>
+    <section id="profile">
+      <h2 class="welcome">Hello,</h2>
+      <div class="profile-wrapper">
+        <div class="user-data">
+          <h2 class="data-header">Personal data</h2>
+          <div class="data-content">
+            <p id="username"><span>Name:</span></p>
+            <p id="user-email"><span>Email:</span></p>
+          </div>
+          <div class="logout-btn btn">
+            <button id="logout">Logout</button>
+          </div>
+        </div>
+        <div class="user-actions">
+          <div class="change-password">
+            <form action="change-password">
+              <h2>Change password</h2>
+              <div class="form-wrapper">
+                <div class="form-item">
+                  <label for="old-password">Old Password</label>
+                  <input
+                    name="old-password"
+                    type="password"
+                    placeholder="Enter old password"
+                  />
+                </div>
+                <div class="form-item">
+                  <label for="new-password">New Password</label>
+                  <input
+                    name="new-password"
+                    type="password"
+                    placeholder="Enter new password"
+                  />
+                </div>
+                <div class="form-item">
+                  <label for="confirm-password">Confirm Password</label>
+                  <input
+                    name="confirm-password"
+                    type="password"
+                    placeholder="Confirm new password"
+                  />
+                </div>
+              </div>
+              <div class="change-btn btn">
+                <button>Change</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-wrapper">
+        <div class="footer-section">
+          <h3>Authors</h3>
+          <p>Munteanu Catalin</p>
+          <p>Anicai Denis</p>
+          <p>Popovici Marian</p>
+        </div>
+        <div class="footer-section">
+          <h3>Menu</h3>
+          <a href="">Home</a>
+          <a href="">About</a>
+          <a href="">Editor</a>
+          <a href="">Gallery</a>
+        </div>
+        <div class="footer-section">
+          <h3>Repository</h3>
+          <a href="">GIT</a>
+        </div>
+      </div>
+      <div class="copyrights">© Copyrights 2022</div>
+    </footer>
   </body>
 </html>
