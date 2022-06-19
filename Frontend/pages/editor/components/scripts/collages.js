@@ -3,7 +3,8 @@
   const isAuth = authModule.default;
 
   const utilsModule = await import('../../utils/utils.js');
-  const { render, clear, hasGalleryAccess, saveImage } = utilsModule.default;
+  const { render, clear, hasGalleryAccess, saveImage, renderGallery } =
+    utilsModule.default;
 
   // import collage template
   const importTemplate = async (name) => {
@@ -33,8 +34,8 @@
 
   // choose image from gallery
   const chooseImageFromGallery = async (event) => {
-    const gallery = await render('gallery');
-    document.querySelector('body').append(gallery);
+    const content = await renderGallery();
+    document.querySelector('body').append(content);
 
     if (!hasGalleryAccess()) {
       return;

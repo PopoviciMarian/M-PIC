@@ -1,6 +1,6 @@
-const renderPrivateItem = (image, likes, shares) => {
+const renderPrivateItem = (image, likes, shares, id) => {
   return `
-    <div class="gallery-item" id="private-item">
+    <div class="gallery-item private-item" id="${id}">
           <div class="item-content">
             <div class="item-image">
               <img
@@ -61,9 +61,9 @@ const renderPrivateItem = (image, likes, shares) => {
           </div>
           <div class="item-footer">
             <div class="item-actions">
+            <button class="btn edit" id="${id}">Edit</button>
+            <button class="btn share">Share</button>
               <button class="btn delete">Delete</button>
-              <button class="btn edit">Edit</button>
-              <button class="btn share">Share</button>
             </div>
             <div class="item-reactions">
               <div class="reactions-wrapper">

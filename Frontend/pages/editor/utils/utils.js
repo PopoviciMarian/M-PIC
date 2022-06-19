@@ -149,4 +149,41 @@ const saveCollageImage = async () => {
   console.log(data);
 };
 
-export default { render, clear, hasGalleryAccess, saveImage, discardImages };
+const renderGallery = async () => {
+  const galleryModule = await import('../components/html/html_gallery.js');
+  const createGallery = galleryModule.default;
+
+  const token = JSON.parse(localStorage.getItem('token'));
+
+  const res = await fetch('http://178.79.141.216:8803/api/images/private', {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  });
+
+  const data = await res.json();
+  const items = [...data.message];
+  console.log(items);
+  const html_gallery = createGallery(items);
+
+  console.log(html_gallery);
+
+  const parser = new DOMParser();
+  const content = parser
+    .parseFromString(html_gallery, 'text/html')
+    .querySelector('#gallery');
+
+  console.log(content);
+
+  return content;
+};
+
+export default {
+  render,
+  clear,
+  hasGalleryAccess,
+  saveImage,
+  discardImages,
+  renderGallery
+};

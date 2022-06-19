@@ -10,7 +10,7 @@ import { renderPrivateItem } from './components/html/html_private_item.js';
     const parser = new DOMParser();
     const content = parser
       .parseFromString(item_html, 'text/html')
-      .querySelector('#' + id);
+      .querySelector('.' + id);
 
     return content;
   };
@@ -27,7 +27,8 @@ import { renderPrivateItem } from './components/html/html_private_item.js';
         item.username,
         item.img_url,
         item.likes,
-        item.shares
+        item.shares,
+        item.img_url
       );
 
       const content = parser(item_html, 'public-item');
@@ -51,10 +52,24 @@ import { renderPrivateItem } from './components/html/html_private_item.js';
   items.push(...data.message);
 
   items.forEach((item) => {
-    const item_html = renderPrivateItem(item.img_url, item.likes, item.shares);
+    const item_html = renderPrivateItem(
+      item.img_url,
+      item.likes,
+      item.shares,
+      item.img_url
+    );
     const content = parser(item_html, 'private-item');
     container.appendChild(content);
   });
 
   title.innerHTML = 'Your Feed';
+
+  const editBtns = document.querySelectorAll('.edit');
+
+  editBtns.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const id = e.target.id;
+      window.location.href = '../../pages/editor/editor.html?id=' + id;
+    });
+  });
 })();

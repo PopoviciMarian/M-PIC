@@ -1,6 +1,6 @@
-const renderPublicItem = (username, image, likes, shares) => {
+const renderPublicItem = (username, image, likes, shares, id) => {
   return `
-<div class="gallery-item public-item" id="public-item">
+<div class="gallery-item public-item " id="${id}">
 <div class="item-header">${username}</div>
 <div class="item-content">
   <div class="item-image">

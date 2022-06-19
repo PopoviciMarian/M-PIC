@@ -3,14 +3,21 @@
   const isAuth = authModule.default;
 
   const utilsModule = await import('../../utils/utils.js');
-  const { render, clear, hasGalleryAccess, saveImage } = utilsModule.default;
+  const { render, clear, hasGalleryAccess, saveImage, renderGallery } =
+    utilsModule.default;
 
   // clear previous
   const container = clear();
 
-  // render placeholder image
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id') || null;
+  // render image
   const img = document.createElement('img');
-  img.setAttribute('src', '../../resources/placeholder.png');
+  if (!id) {
+    img.setAttribute('src', '../../resources/placeholder.png');
+  } else {
+    img.setAttribute('src', id);
+  }
   container.append(img);
 
   //upload new image
@@ -33,8 +40,8 @@
 
   //choose image from gallery
   const chooseImageFromGallery = async () => {
-    const gallery = await render('gallery');
-    document.querySelector('body').append(gallery);
+    const content = await renderGallery();
+    document.querySelector('body').append(content);
 
     if (!hasGalleryAccess()) {
       return;
