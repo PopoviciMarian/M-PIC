@@ -28,7 +28,7 @@ import { renderPrivateItem } from './components/html/html_private_item.js';
         item.img_url,
         item.likes,
         item.shares,
-        item.img_url
+        item.image_id
       );
 
       const content = parser(item_html, 'public-item');
@@ -56,7 +56,7 @@ import { renderPrivateItem } from './components/html/html_private_item.js';
       item.img_url,
       item.likes,
       item.shares,
-      item.img_url
+      item.image_id
     );
     const content = parser(item_html, 'private-item');
     container.appendChild(content);

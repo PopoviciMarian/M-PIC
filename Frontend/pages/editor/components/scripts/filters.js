@@ -9,14 +9,19 @@
   // clear previous
   const container = clear();
 
+  // render image
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id') || null;
-  // render image
   const img = document.createElement('img');
   if (!id) {
     img.setAttribute('src', '../../resources/placeholder.png');
   } else {
-    img.setAttribute('src', id);
+    const res = await fetch(
+      'http://178.79.141.216:8803/api/images/getbyid?id=' + id
+    );
+    const data = await res.json();
+    const src = data.message[0].img_url;
+    img.setAttribute('src', src);
   }
   container.append(img);
 

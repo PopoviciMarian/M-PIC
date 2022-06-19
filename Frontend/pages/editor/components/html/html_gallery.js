@@ -12,15 +12,11 @@ const createGallery = (images) => {
     <div class="gallery-grid"> 
 `;
 
-  //image_id
-  //img_url
   images.forEach((img) => {
     galleryGrid += galleryItem(img.image_id, img.img_url);
   });
 
   galleryGrid.concat('</div></section>');
-
-  console.log(galleryGrid);
 
   return galleryGrid;
 };
