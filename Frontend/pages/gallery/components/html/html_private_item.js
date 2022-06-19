@@ -1,6 +1,6 @@
 const renderPrivateItem = (image, likes, shares) => {
   return `
-    <div class="gallery-item" id="private_item">
+    <div class="gallery-item" id="private-item">
           <div class="item-content">
             <div class="item-image">
               <img
@@ -81,3 +81,5 @@ const renderPrivateItem = (image, likes, shares) => {
         </div>
     `;
 };
+
+export { renderPrivateItem };
