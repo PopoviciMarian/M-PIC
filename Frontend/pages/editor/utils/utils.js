@@ -35,15 +35,46 @@ const hasGalleryAccess = () => {
   return true;
 };
 
+const closeBtnHelper = () => {
+  const confirmDialog = document.querySelector('#confirm');
+  const closeConfirmBtn = confirmDialog.querySelector('#close-confirm');
+  closeConfirmBtn.addEventListener('click', () => {
+    document.querySelector('#confirm').remove();
+  });
+};
+
 const saveImage = async (id) => {
-  switch (id) {
-    case 'filters':
-      await saveFilterImage();
-      break;
-    case 'collages':
-      await saveCollageImage();
-      break;
-  }
+  const confirmDialog = await render('confirm');
+  document.body.appendChild(confirmDialog);
+
+  const publicBtn = confirmDialog.querySelector('#public');
+  const privateBtn = confirmDialog.querySelector('#private');
+
+  [publicBtn, privateBtn].forEach((btn) => {
+    btn.addEventListener('click', async (e) => {
+      const type = e.target.id;
+
+      if (!isAuth()) {
+        document.querySelector('.confirm-msg').remove();
+        document.querySelector('.confirm-actions').remove();
+        const wrapper = document.querySelector('.confirm-wrapper');
+        wrapper.innerHTML +=
+          '<h2 class="confirm-msg">You are not logged in</h2>';
+        closeBtnHelper();
+      } else {
+        switch (id) {
+          case 'filters':
+            await saveFilterImage(type);
+            break;
+          case 'collages':
+            await saveCollageImage(type);
+            break;
+        }
+      }
+    });
+  });
+
+  closeBtnHelper();
 };
 
 const discardImages = async (id) => {
@@ -57,7 +88,7 @@ const discardImages = async (id) => {
   }
 };
 
-const saveFilterImage = async () => {
+const saveFilterImage = async (type) => {
   const token = JSON.parse(localStorage.getItem('token'));
 
   const img = document.querySelector('.image-to-edit img');
@@ -79,7 +110,7 @@ const saveFilterImage = async () => {
   formData.append('image', imageBlob, 'image.png');
 
   const res = await fetch(
-    'http://178.79.141.216:8803/api/image/upload?type=public',
+    'http://178.79.141.216:8803/api/image/upload?type=' + type,
     {
       method: 'POST',
       headers: {
@@ -89,9 +120,19 @@ const saveFilterImage = async () => {
     }
   );
 
-  const data = await res.json();
+  let msg;
+  if (res.ok) {
+    let data = await res.json();
+    msg = data.message;
+  } else {
+    msg = 'You are not logged in';
+  }
 
-  console.log(data);
+  const wrapper = document.querySelector('.confirm-wrapper');
+  document.querySelector('.confirm-msg').remove();
+  document.querySelector('.confirm-actions').remove();
+  wrapper.innerHTML += `<h2 class="confirm-msg">${msg}</h2>`;
+  closeBtnHelper();
 };
 
 const discardFilters = () => {
@@ -122,7 +163,7 @@ const discardCollages = async () => {
     .dispatchEvent(new MouseEvent('click'));
 };
 
-const saveCollageImage = async () => {
+const saveCollageImage = async (type) => {
   const token = JSON.parse(localStorage.getItem('token'));
   const canvas = await html2canvas(document.querySelector('.image-to-edit'));
 
@@ -134,7 +175,7 @@ const saveCollageImage = async () => {
   formData.append('image', imageBlob, 'image.png');
 
   const res = await fetch(
-    'http://178.79.141.216:8803/api/image/upload?type=public',
+    'http://178.79.141.216:8803/api/image/upload?type=' + type,
     {
       method: 'POST',
       headers: {
@@ -144,9 +185,19 @@ const saveCollageImage = async () => {
     }
   );
 
-  const data = await res.json();
+  let msg;
+  if (res.ok) {
+    let data = await res.json();
+    msg = data.message;
+  } else {
+    msg = 'You are not logged in';
+  }
 
-  console.log(data);
+  const wrapper = document.querySelector('.confirm-wrapper');
+  document.querySelector('.confirm-msg').remove();
+  document.querySelector('.confirm-actions').remove();
+  wrapper.innerHTML += `<h2 class="confirm-msg">${msg}</h2>`;
+  closeBtnHelper();
 };
 
 const renderGallery = async () => {
@@ -164,17 +215,12 @@ const renderGallery = async () => {
 
   const data = await res.json();
   const items = [...data.message];
-  console.log(items);
   const html_gallery = createGallery(items);
-
-  console.log(html_gallery);
 
   const parser = new DOMParser();
   const content = parser
     .parseFromString(html_gallery, 'text/html')
     .querySelector('#gallery');
-
-  console.log(content);
 
   return content;
 };

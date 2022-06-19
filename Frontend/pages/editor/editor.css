@@ -28,7 +28,8 @@
   filter: brightness(80%);
 }
 
-.close-btn {
+.close-btn,
+.close-confirm {
   position: absolute;
   cursor: pointer;
   top: 10px;
@@ -467,3 +468,64 @@
 .gallery-item:hover {
   filter: brightness(95%);
 }
+
+/* confirm */
+
+#confirm {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(19, 19, 19, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+}
+.confirm-wrapper {
+  width: 16rem;
+  padding: 2rem;
+  padding-bottom: 1rem;
+  background-color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.confirm-msg,
+.confirm-actions {
+  margin-bottom: 1rem;
+  font-size: 1.75rem;
+}
+
+.confirm-actions {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.confirm-btn {
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  border: none;
+  cursor: pointer;
+  background-color: var(--yellow);
+}
+.confirm-btn:hover {
+  filter: brightness(90%);
+}
+/* 
+    <section id="confirm">
+      <div class="confirm-wrapper">
+        <div class="confirm-msg">Save as
+        </div>
+        <div class="confirm-actions">
+          <button class="confirm-btn public" id="public">Public</button>
+          <button class="confirm-btn private" id="private">Private</button>
+        </div>
+      </div>
+    </section>
+
+ */
