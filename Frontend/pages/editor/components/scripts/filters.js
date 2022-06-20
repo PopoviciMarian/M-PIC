@@ -13,16 +13,26 @@
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id') || null;
 
+  const type = params.get('type') || null;
+
   const img = document.createElement('img');
   if (!id) {
     img.setAttribute('src', '../../resources/placeholder.png');
   } else {
-    const res = await fetch(
-      'http://178.79.141.216:8803/api/images/getbyid?id=' + id
-    );
-    const data = await res.json();
-    const src = data.message[0].img_url;
-    img.setAttribute('src', src);
+    if (!type) {
+      const res = await fetch(
+        'http://178.79.141.216:8803/api/images/getbyid?id=' + id
+      );
+      const data = await res.json();
+      const src = data.message[0].img_url;
+      img.setAttribute('src', src);
+    }
+    if (type) {
+      const res = await fetch('unsplash' + id);
+      const data = await res.json();
+      // const src = data.message[0].img_url;
+      // img.setAttribute('src', src);
+    }
   }
   container.append(img);
 

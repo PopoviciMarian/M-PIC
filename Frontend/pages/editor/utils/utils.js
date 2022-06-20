@@ -103,7 +103,8 @@ const saveFilterImage = async (type) => {
 
   img.setAttribute('crossOrigin', 'Anonymous');
   context.drawImage(img, 0, 0, canvas.width, canvas.height);
-
+  img.removeAttribute('crossOrigin');
+  
   const imageURL = canvas.toDataURL();
   const imageData = await fetch(imageURL);
   const imageBlob = await imageData.blob();

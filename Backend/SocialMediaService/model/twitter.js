@@ -46,13 +46,32 @@ class TwitterModel{
         
         const res = await doRequest(options);
         let text = res.split('&')[2].split('=')[1]; 
-        console.log(text);
+
         return {code: 200, message: text};
       }catch(error){
         return {code : 500, message : error.message };
       }
     }
-}
+
+    async getTwitterImages(req, body){
+      const user_id = req.headers.user_id;
+      const UrlLink = `https://api.twitter.com/2/users/${user_id}/tweets?tweet.fields=attachments,public_metrics,text&expansions=attachments.media_keys&media.fields=alt_text,media_key,public_metrics,url&user.fields=description`
+
+      var options = {
+        'method': 'GET',
+        'url': UrlLink, 
+        'headers': {
+          'Authorization': `Bearer ${process.env.TWITTER_BEARER_KEY}`
+        }
+        }
+      const res = await doRequest(options);
+      
+      
+      return {code: 200, message: JSON.parse(res)};
+    }catch(error){
+      return {code : 500, message : error.message };
+    }
+ }
 
 let model = new TwitterModel();
 

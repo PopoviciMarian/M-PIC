@@ -13,6 +13,12 @@ class TwitterController {
         twitterView.getAccessToken(res, modelRes);
         res.end();
     } 
+    async getTwitterImages(req, res, body){
+        let modelRes = await twitterModel.getTwitterImages(req, body);
+        twitterView.getTwitterImages(res, modelRes);
+        res.end();
+    } 
+    
 }
 
 let apiController = new TwitterController();

@@ -13,7 +13,9 @@
 
     <link rel="stylesheet" href="../../components/footer/footer.css" />
 
-    <script type="module" src="./gallery.js" defer></script>
+    <script async type="module" src="./gallery.js" id="feed-script"></script>
+
+    <script type="module" src="./components/scripts/unsplash.js" defer></script>
 
     <title>Document</title>
   </head>
@@ -58,36 +60,7 @@
     </nav>
     <section class="gallery">
       <h2 id="gallery-title"></h2>
-      <div class="gallery-search">
-        <form class="search-box">
-          <input
-            type="search"
-            placeholder="Search..."
-            id="site-search"
-            name="q"
-          />
-          <button>Search</button>
-        </form>
-        <div class="select-wrapper">
-          <div class="select-privacy">
-            <label for="filters-select-privacy">Privacy</label>
-            <select name="filters-select-privacy" id="filters-select-privacy">
-              <option value="all">All</option>
-              <option value="private">Private</option>
-              <option value="public">Public</option>
-            </select>
-          </div>
-          <div class="select-social">
-            <label for="filters-select-social">Social</label>
-            <select name="filters-select-social" id="filters-select-social">
-              <option value="all">All</option>
-              <option value="unsplash">Unsplash</option>
-              <option value="facebook">Facebook</option>
-              <option value="twitter">Twitter</option>
-            </select>
-          </div>
-        </div>
-      </div>
+
       <div class="gallery-wrapper"></div>
     </section>
     <footer class="footer">

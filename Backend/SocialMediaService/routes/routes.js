@@ -9,4 +9,6 @@ router.get('/api/user/unsplash/access_token1', unsplashController.getAccessToken
 router.get('/api/user/unsplash/images', unsplashController.getImages.bind(unsplashController));
 router.get('/api/user/twitter/oauthtoken', twitterController.getOAuthToken.bind(twitterController));
 router.get('/api/user/twitter/access_token', twitterController.getAccessToken.bind(twitterController));
+router.get('/api/user/twitter/get_twitter_images',  twitterController.getTwitterImages.bind(twitterController));
+
 module.exports = router;
