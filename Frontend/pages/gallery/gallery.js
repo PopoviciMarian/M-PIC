@@ -16,13 +16,14 @@ import { renderPrivateItem } from './components/html/html_private_item.js';
   };
 
   if (!isAuth()) {
+    console.log('before');
     const res = await fetch('http://178.79.141.216:8803/api/images/public', {
       method: 'GET'
     });
     const data = await res.json();
     items.push(...data.message);
 
-    items.forEach((item) => {
+    items.reverse().forEach((item) => {
       const item_html = renderPublicItem(
         item.username,
         item.img_url,
@@ -35,9 +36,16 @@ import { renderPrivateItem } from './components/html/html_private_item.js';
       container.appendChild(content);
     });
 
-    title.innerHTML = 'Your Gallery';
+    title.innerHTML = 'Public Feed';
+
     return;
   }
+
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+
+  console.log('stop');
+  if (urlParams.has('code')) return;
 
   const token = JSON.parse(localStorage.getItem('token'));
 
@@ -54,8 +62,8 @@ import { renderPrivateItem } from './components/html/html_private_item.js';
   items.reverse().forEach((item) => {
     const item_html = renderPrivateItem(
       item.img_url,
-      item.likes,
-      item.shares,
+      item.likes | 0,
+      item.shares | 0,
       item.image_id
     );
     const content = parser(item_html, 'private-item');
@@ -64,6 +72,14 @@ import { renderPrivateItem } from './components/html/html_private_item.js';
 
   title.innerHTML = 'Your Feed';
 
+  const social_filters_html = await import(
+    './components/html/html_social_filters.js'
+  );
+  const content = parser(social_filters_html.default, 'social-filters');
+
+  const filtersPlace = document.querySelector('#gallery-title');
+  filtersPlace.insertAdjacentElement('afterEnd', content);
+
   const editBtns = document.querySelectorAll('.edit');
 
   editBtns.forEach((btn) => {
@@ -71,5 +87,11 @@ import { renderPrivateItem } from './components/html/html_private_item.js';
       const id = e.target.id;
       window.location.href = '../../pages/editor/editor.html?id=' + id;
     });
+  });
+
+  const unsplashLoginBtn = document.querySelector('.unsplash-btn');
+  unsplashLoginBtn.addEventListener('click', () => {
+    location.href =
+      'https://unsplash.com/oauth/authorize?client_id=RUKYUnMEMgpNhG6iBbkAG6x_ctw2Uv_Bu7ksTR-sGSU&redirect_uri=http%3A%2F%2F127.0.0.1%3A5501%2Fpages%2Fgallery%2Fgallery.html&response_type=code&scope=public+read_user+write_user+read_photos+write_photos+write_likes+write_followers+read_collections+write_collections';
   });
 })();
