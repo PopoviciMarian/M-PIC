@@ -102,13 +102,17 @@ const saveFilterImage = async (type) => {
   context.filter = getComputedStyle(img).filter;
 
   img.setAttribute('crossOrigin', 'Anonymous');
-  context.drawImage(img, 0, 0, canvas.width, canvas.height);
+ 
+
+  context.drawImage(img, 0, 0);
+
   img.removeAttribute('crossOrigin');
-  
+  var img1 = new Image;
+  img1.src = canvas.toDataURL();
   const imageURL = canvas.toDataURL();
+  
   const imageData = await fetch(imageURL);
   const imageBlob = await imageData.blob();
-
   const formData = new FormData();
   formData.append('image', imageBlob, 'image.png');
 
