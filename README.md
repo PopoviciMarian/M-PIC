@@ -1,0 +1,1 @@
+![alt text](https://github.com/PopoviciMarian/M-PIC/tree/main/Scholarly/image.png?raw=true)
