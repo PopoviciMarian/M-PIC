@@ -20,7 +20,7 @@ class TwitterModel{
     async getOAuthToken(req, body){
         try {
           const client = new TwitterApi({ appKey: process.env.TWITTER_CONSUMER_KEY, appSecret: process.env.TWITTER_SECRET_KEY });
-          const authLink = await client.generateAuthLink("http://127.0.0.1:5500/Backend/twitterSimulation.html");
+          const authLink = await client.generateAuthLink("http://127.0.0.1:5501/pages/gallery/gallery.html");
           console.log(authLink);
           return {code: 200, message: authLink};
         }catch(error){
