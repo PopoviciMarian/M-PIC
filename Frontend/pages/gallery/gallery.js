@@ -45,7 +45,7 @@ import { renderPrivateItem } from './components/html/html_private_item.js';
   const urlParams = new URLSearchParams(queryString);
 
   console.log('stop');
-  if (urlParams.has('code')) return;
+  if (urlParams.has('code') || urlParams.has('oauth_token')) return;
 
   const token = JSON.parse(localStorage.getItem('token'));
 
@@ -214,5 +214,11 @@ import { renderPrivateItem } from './components/html/html_private_item.js';
   unsplashLoginBtn.addEventListener('click', () => {
     location.href =
       'https://unsplash.com/oauth/authorize?client_id=RUKYUnMEMgpNhG6iBbkAG6x_ctw2Uv_Bu7ksTR-sGSU&redirect_uri=http%3A%2F%2F127.0.0.1%3A5501%2Fpages%2Fgallery%2Fgallery.html&response_type=code&scope=public+read_user+write_user+read_photos+write_photos+write_likes+write_followers+read_collections+write_collections';
+  });
+
+  const twitterLoginBtn = document.querySelector('#twitter-login-btn');
+  console.log(twitterLoginBtn);
+  twitterLoginBtn.addEventListener('click', () => {
+    window.location.href = localStorage.getItem('twitterURL');
   });
 })();

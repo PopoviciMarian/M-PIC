@@ -52,7 +52,7 @@ const socials = `
         </div>
 
         <div class="social-item">
-          <button class="twitter-btn">Twitter</button>
+          <button class="twitter-btn" id="twitter-login-btn">Twitter</button>
           <!-- <div class="twitter-select"></div> -->
         </div>
 

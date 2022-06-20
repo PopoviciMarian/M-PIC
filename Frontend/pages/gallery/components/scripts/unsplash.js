@@ -1,4 +1,6 @@
 import { renderUnsplashItem } from '../html/html_unsplash_item.js';
+import { renderPrivateItem } from '../html/html_private_item.js';
+
 (async () => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -123,7 +125,7 @@ import { renderUnsplashItem } from '../html/html_unsplash_item.js';
   //
   //
   //
-
+  console.log('unsplah');
   const title = document.querySelector('#gallery-title');
   title.innerHTML = 'Your Feed';
 
@@ -261,12 +263,16 @@ import { renderUnsplashItem } from '../html/html_unsplash_item.js';
 
     const data = await res.json();
     console.log(data);
+    const items = [];
     [...data.message].forEach((img) => {
       if (img.is_private === true) {
         items.push(img);
       }
     });
     console.log(items);
+
+    const container = document.querySelector('.gallery-wrapper');
+    container.innerHTML = '';
 
     items.reverse().forEach((item) => {
       const item_html = renderPrivateItem(
@@ -282,5 +288,11 @@ import { renderUnsplashItem } from '../html/html_unsplash_item.js';
     });
 
     title.innerHTML = 'Your Feed';
+  });
+
+  const twitterLoginBtn = document.querySelector('#twitter-login-btn');
+  console.log(twitterLoginBtn);
+  twitterLoginBtn.addEventListener('click', () => {
+    window.location.href = localStorage.getItem('twitterURL');
   });
 })();
