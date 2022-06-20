@@ -1,5 +1,6 @@
+import { renderPrivateItem } from '../html/html_private_item.js';
 import { renderPublicItem } from '../html/html_public_item.js';
-
+import { renderUnsplashItem } from '../html/html_unsplash_item.js';
 (async () => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -58,7 +59,7 @@ import { renderPublicItem } from '../html/html_public_item.js';
         src: p.urls.regular,
         likes: p.likes | 0,
         shares: p.shares | 0,
-        username: username
+        username: p.user.username
       });
     });
 
@@ -66,14 +67,14 @@ import { renderPublicItem } from '../html/html_public_item.js';
     container.innerHTML = '';
 
     photos.forEach((item) => {
-      const item_html = renderPublicItem(
+      const item_html = renderUnsplashItem(
         item.username,
         item.src,
         item.likes,
         item.shares,
         item.id
       );
-      const content = parser(item_html, 'public-item');
+      const content = parser(item_html, 'unsplash-item');
       container.appendChild(content);
     });
   };
@@ -193,19 +194,23 @@ import { renderPublicItem } from '../html/html_public_item.js';
   });
 
   randomInput.addEventListener('input', (e) => {
-    if (isChecked === true || queryValue !== '') {
+    if (isChecked === true) {
       randomInput.value = '';
     } else {
       randomValue = e.target.value;
+      unsplashSearch.value = '';
+      queryValue = '';
     }
     console.log(randomValue);
   });
 
   unsplashSearch.addEventListener('input', (e) => {
-    if (isChecked === true || randomValue !== 0) {
+    if (isChecked === true) {
       unsplashSearch.value = '';
     } else {
       queryValue = e.target.value;
+      randomInput.value = '';
+      randomValue = 0;
     }
     console.log(queryValue);
   });
@@ -258,7 +263,7 @@ import { renderPublicItem } from '../html/html_public_item.js';
 
       console.log(data);
 
-      //   renderFilteredPics(data);
+      renderFilteredPics(data.results);
     } else {
       console.log('wrong input');
     }

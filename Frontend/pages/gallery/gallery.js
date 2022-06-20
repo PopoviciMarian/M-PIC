@@ -27,8 +27,8 @@ import { renderPrivateItem } from './components/html/html_private_item.js';
       const item_html = renderPublicItem(
         item.username,
         item.img_url,
-        item.likes,
-        item.shares,
+        item.likes | 0,
+        item.shares | 0,
         item.image_id
       );
 
@@ -57,10 +57,17 @@ import { renderPrivateItem } from './components/html/html_private_item.js';
   });
 
   const data = await res.json();
-  items.push(...data.message);
+  console.log(data);
+  [...data.message].forEach((img) => {
+    if (img.is_private === true) {
+      items.push(img);
+    }
+  });
+  console.log(items);
 
   items.reverse().forEach((item) => {
     const item_html = renderPrivateItem(
+      // item.username,
       item.img_url,
       item.likes | 0,
       item.shares | 0,
@@ -88,6 +95,83 @@ import { renderPrivateItem } from './components/html/html_private_item.js';
       window.location.href = '../../pages/editor/editor.html?id=' + id;
     });
   });
+
+  const applyMPicBtn = document.querySelector('#apply-mpic-btn');
+  const privacySelect = document.querySelector('#privacy-select');
+  const mPicQueryInput = document.querySelector('#mpic-search-input');
+
+  let privacyStatus = '';
+  let queryInput = '';
+
+  privacySelect.addEventListener('change', (e) => {
+    privacyStatus = e.target.value;
+    queryInput = '';
+    mPicQueryInput.value = '';
+  });
+
+  mPicQueryInput.addEventListener('input', (e) => {
+    queryInput = e.target.value;
+    privacyStatus = '';
+  });
+
+  applyMPicBtn.addEventListener('click', async () => {
+    if (queryInput == '' && privacyStatus !== '') {
+      console.log(privacyStatus);
+
+      const res = await fetch(
+        'http://178.79.141.216:8803/api/images/' + privacyStatus,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: 'Bearer ' + token
+          }
+        }
+      );
+      const data = await res.json();
+
+      const items = [];
+      items.push(...data.message);
+      container.innerHTML = '';
+
+      console.log(items);
+
+      items.reverse().forEach((item) => {
+        if (privacyStatus === 'public') {
+          const item_html = renderPublicItem(
+            item.username,
+            item.img_url,
+            item.likes | 0,
+            item.shares | 0,
+            item.image_id
+          );
+          const content = parser(item_html, 'public-item');
+          container.appendChild(content);
+        } else if (privacyStatus === 'private') {
+          if (item.is_private === true) {
+            const item_html = renderPrivateItem(
+              item.img_url,
+              item.likes | 0,
+              item.shares | 0,
+              item.image_id
+            );
+
+            const content = parser(item_html, 'private-item');
+            container.appendChild(content);
+          }
+        }
+      });
+      const editBtns = document.querySelectorAll('.edit');
+
+      editBtns.forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          const id = e.target.id;
+          window.location.href = '../../pages/editor/editor.html?id=' + id;
+        });
+      });
+    }
+  });
+
+  console.log(applyMPicBtn, privacySelect);
 
   const unsplashLoginBtn = document.querySelector('.unsplash-btn');
   unsplashLoginBtn.addEventListener('click', () => {

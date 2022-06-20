@@ -5,17 +5,16 @@ const socials = `
           <div class="mpic-select-container">
             <div class="mpic-select">
               <select name="privacy-select" id="privacy-select">
-                <option value="all">All</option>
-                <option value="private">Private</option>
+              <option value="private">Private</option>
                 <option value="public">Public</option>
               </select>
             </div>
             <div class="mpic-search">
-              <input type="search" placeholder="Search..." />
+              <input id="mpic-search-input" type="search" placeholder="Search..." />
               <!-- <button class="search-btn">Search</button> -->
             </div>
           </div>
-          <button class="apply-btn">Apply</button>
+          <button class="apply-btn" id="apply-mpic-btn">Apply</button>
         </div>
 
         <div class="social-item">
