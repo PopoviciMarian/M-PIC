@@ -38,10 +38,6 @@
   border: 2px solid var(--black) !important;
 }
 
-.mpic-btn:hover {
-  filter: none !important;
-  cursor: default;
-}
 .unsplash-btn {
   background-color: black !important;
   border: 2px solid black !important;

@@ -11,9 +11,9 @@
 
   // render image
   const params = new URLSearchParams(window.location.search);
-  const id = params.get('id') || null;
 
-  const type = params.get('type') || null;
+  const id = params.get('id');
+  const type = params.get('type');
 
   const img = document.createElement('img');
   if (!id) {
@@ -28,10 +28,16 @@
       img.setAttribute('src', src);
     }
     if (type) {
-      const res = await fetch('unsplash' + id);
+      console.log(type);
+      const res = await fetch('https://api.unsplash.com/photos/' + id, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('unsplashToken')
+        }
+      });
       const data = await res.json();
-      // const src = data.message[0].img_url;
-      // img.setAttribute('src', src);
+      console.log(data);
+      const src = data.urls.regular;
+      img.setAttribute('src', src);
     }
   }
   container.append(img);

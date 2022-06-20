@@ -1,5 +1,3 @@
-import { renderPrivateItem } from '../html/html_private_item.js';
-import { renderPublicItem } from '../html/html_public_item.js';
 import { renderUnsplashItem } from '../html/html_unsplash_item.js';
 (async () => {
   const queryString = window.location.search;
@@ -15,38 +13,6 @@ import { renderUnsplashItem } from '../html/html_unsplash_item.js';
       .querySelector('.' + id);
 
     return content;
-  };
-
-  // render default pics
-  const renderUserPicsDefault = (data) => {
-    console.log(data);
-
-    const photos = [];
-
-    data.photos.forEach((p) => {
-      photos.push({
-        id: p.id,
-        src: p.urls.regular,
-        likes: p.likes | 0,
-        shares: p.shares | 0,
-        username: data.username
-      });
-    });
-
-    const container = document.querySelector('.gallery-wrapper');
-    // container.innerHTML = '';
-
-    photos.forEach((item) => {
-      const item_html = renderPublicItem(
-        item.username,
-        item.src,
-        item.likes,
-        item.shares,
-        item.id
-      );
-      const content = parser(item_html, 'public-item');
-      container.appendChild(content);
-    });
   };
 
   // render filtered pics
@@ -77,10 +43,19 @@ import { renderUnsplashItem } from '../html/html_unsplash_item.js';
       const content = parser(item_html, 'unsplash-item');
       container.appendChild(content);
     });
+
+    const editBtns = document.querySelectorAll('.edit');
+
+    editBtns.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        const id = e.target.id;
+        window.location.href =
+          '../../pages/editor/editor.html?id=' + id + '&type=unsplash';
+      });
+    });
   };
 
   const code = urlParams.get('code');
-  localStorage.setItem('unsplashToken', code);
 
   // get token
   const res = await fetch(
@@ -96,6 +71,7 @@ import { renderUnsplashItem } from '../html/html_unsplash_item.js';
   const data = await res.json();
 
   const token = data.message.access_token;
+  localStorage.setItem('unsplashToken', token);
 
   // get user pics
   const res2 = await fetch(`https://api.unsplash.com/me`, {
@@ -162,7 +138,8 @@ import { renderUnsplashItem } from '../html/html_unsplash_item.js';
   editBtns.forEach((btn) => {
     btn.addEventListener('click', (e) => {
       const id = e.target.id;
-      window.location.href = '../../pages/editor/editor.html?id=' + id;
+      window.location.href =
+        '../../pages/editor/editor.html?id=' + id + '&type=unsplash';
     });
   });
 
@@ -267,5 +244,43 @@ import { renderUnsplashItem } from '../html/html_unsplash_item.js';
     } else {
       console.log('wrong input');
     }
+  });
+
+  //mpic
+  const mpicBtn = document.querySelector('.mpic-btn');
+
+  mpicBtn.addEventListener('click', async () => {
+    const token = JSON.parse(localStorage.getItem('token'));
+
+    const res = await fetch('http://178.79.141.216:8803/api/images/private', {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    });
+
+    const data = await res.json();
+    console.log(data);
+    [...data.message].forEach((img) => {
+      if (img.is_private === true) {
+        items.push(img);
+      }
+    });
+    console.log(items);
+
+    items.reverse().forEach((item) => {
+      const item_html = renderPrivateItem(
+        // item.username,
+        item.img_url,
+        item.likes | 0,
+        item.shares | 0,
+        item.image_id
+      );
+      const content = parser(item_html, 'private-item');
+      container.innerHTML = '';
+      container.appendChild(content);
+    });
+
+    title.innerHTML = 'Your Feed';
   });
 })();

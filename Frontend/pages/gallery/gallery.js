@@ -173,6 +173,43 @@ import { renderPrivateItem } from './components/html/html_private_item.js';
 
   console.log(applyMPicBtn, privacySelect);
 
+  const mpicBtn = document.querySelector('.mpic-btn');
+
+  mpicBtn.addEventListener('click', async () => {
+    const token = JSON.parse(localStorage.getItem('token'));
+
+    const res = await fetch('http://178.79.141.216:8803/api/images/private', {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    });
+
+    const data = await res.json();
+    console.log(data);
+    [...data.message].forEach((img) => {
+      if (img.is_private === true) {
+        items.push(img);
+      }
+    });
+    console.log(items);
+
+    items.reverse().forEach((item) => {
+      const item_html = renderPrivateItem(
+        // item.username,
+        item.img_url,
+        item.likes | 0,
+        item.shares | 0,
+        item.image_id
+      );
+      const content = parser(item_html, 'private-item');
+      container.innerHTML = '';
+      container.appendChild(content);
+    });
+
+    title.innerHTML = 'Your Feed';
+  });
+
   const unsplashLoginBtn = document.querySelector('.unsplash-btn');
   unsplashLoginBtn.addEventListener('click', () => {
     location.href =
