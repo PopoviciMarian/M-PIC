@@ -27,6 +27,11 @@ class ImageController {
         imageView.getImageById(res, modelRes);
         res.end();
     }
+    async search(req, res, body){
+        let modelRes = await imageModel.search(req);
+        imageView.search(res, modelRes);
+        res.end();
+    }
 }
 
 

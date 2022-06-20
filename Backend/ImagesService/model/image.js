@@ -56,6 +56,7 @@ class ImageModel{
         const image_id = random();
         var file_type = ""
         let image_type = new URLSearchParams(req.url).get('/api/image/upload?type');
+        let title = new URLSearchParams(req.url).get('title');
         if(image_type !== 'private' && image_type !== 'public'){
             return {code : 400, message : "type must be private or public!"}
         }
@@ -66,7 +67,7 @@ class ImageModel{
             const saveTo = path.join("./uploads", `${image_id}.${file_type}`);
             file.pipe(fs.createWriteStream(saveTo));
             var date = Math.round(Date.now() / 1000);
-            var dbRes =  pool.query("INSERT INTO images (image_id, owner_id, is_private, insert_date, file_type) VALUES ($1, $2, $3, $4, $5)", [image_id, user_id, image_type === 'private', date, file_type])
+            var dbRes =  pool.query("INSERT INTO images (image_id, owner_id, is_private, insert_date, file_type, title) VALUES ($1, $2, $3, $4, $5, $6)", [image_id, user_id, image_type === 'private', date, file_type, title])
         });
         req.pipe(bb);
         return {code : 201, message: "Image saved!"}
@@ -74,7 +75,7 @@ class ImageModel{
 
     async getPublicImages(){
         try{
-        var images = await pool.query("SELECT image_id, name as username, email, insert_date, file_type from users JOIN images on users.id = images.owner_id where images.is_private = false");
+        var images = await pool.query("SELECT image_id, name as username, email, insert_date, file_type, title from users JOIN images on users.id = images.owner_id where images.is_private = false");
           return {code:200,  message: images.rows}
         }
         catch(e){
@@ -113,7 +114,7 @@ class ImageModel{
         }
         try{
         const user_id =  response['message']['id'];
-        const images = (await pool.query("SELECT image_id, insert_date, file_type, is_private FROM images WHERE owner_id = $1", [user_id])).rows
+        const images = (await pool.query("SELECT image_id, insert_date, file_type, is_private, title FROM images WHERE owner_id = $1", [user_id])).rows
         return {code : 200, message: images}
         }
         catch(error){
@@ -176,6 +177,11 @@ class ImageModel{
         }
         return {code : 200, message: res.rows}
     }
+        async search(req){
+            let value = new URLSearchParams(req.url).get('/api/images/search?value');
+            const res = await pool.query("SELECT * FROM images WHERE title LIKE $1", [value])
+            return {code : 200, message: res.rows}
+        }
 }
 
 let model = new ImageModel();

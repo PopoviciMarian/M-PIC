@@ -7,4 +7,5 @@ router.get("/api/images/public", imageController.getPublicImages.bind(imageContr
 router.get("/api/images/private", imageController.getPrivateImages.bind(imageController));
 router.delete("/api/images/delete", imageController.deleteImage.bind(imageController));
 router.get("/api/images/getbyid", imageController.getImageById.bind(imageController));
+router.get("/api/images/search", imageController.search.bind(imageController));
 module.exports = router;
